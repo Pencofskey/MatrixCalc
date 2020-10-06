@@ -73,6 +73,10 @@ public class Fraction {
 			throw new IllegalArgumentException("分母に0が代入");
 		} else if (bunshi == 0) { //分子0の場合整数の0を代入
 			bunsu = "0";
+		} else if (bunbo < 0){
+			bunshi *= -1;
+			bunbo *= -1;
+			bunsu = bunshi + "/" + bunbo;
 		} else {
 			bunsu = bunshi + "/" + bunbo;
 		}

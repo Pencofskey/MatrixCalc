@@ -32,7 +32,12 @@ public class Matrix {
 		this.matrix = new String[row][column];
 		for (int r = 0; r < this.row; r++) {
 			for (int c = 0; c < this.column; c++) {
-				this.matrix[r][c] = "" + (new java.util.Random().nextInt(randomRange) - randomRange / 2);
+				int bunshi = new java.util.Random().nextInt(randomRange) - randomRange / 2;
+				int bunbo = new java.util.Random().nextInt(randomRange) - randomRange / 2;
+				if (bunbo == 0) {
+					bunbo = 1;
+				}
+				this.matrix[r][c] = "" + Fraction.buildFraction(bunshi, bunbo);
 			}
 		}
 	}			
