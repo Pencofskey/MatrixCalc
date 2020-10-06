@@ -45,9 +45,10 @@ public class test {
 
 
 		//printer,inputerテスト
-		Matrix m = new Matrix(5, 7, 10);
+		Matrix m = new Matrix(3, 4, 5);
 //		m.inputData();
 		m.print();
+		System.out.println();
 //		m.rowBasicTransformation1_w(0, "2");
 //		m.print();
 //		m.rowBasicTransformation2_d(0, "1", 2);
