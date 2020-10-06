@@ -45,8 +45,8 @@ public class test {
 
 
 		//printer,inputerテスト
-		Matrix m = new Matrix();
-		m.inputData();
+		Matrix m = new Matrix(4, 5, 100);
+//		m.inputData();
 		m.print();
 //		m.rowBasicTransformation1_w(0, "2");
 //		m.print();
