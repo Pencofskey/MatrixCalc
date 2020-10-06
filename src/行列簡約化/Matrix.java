@@ -155,8 +155,8 @@ public class Matrix {
 
 					//デバッグ用
 					System.out.println();
-					this.print();
 					System.out.println("現在は " + r + "行" + c + "列 です");
+					this.print();
 
 					c = this.column; //次の行に進む
 				}else if (!this.matrix[r][c].equals("0") && r == this.row - 1) {
@@ -167,9 +167,20 @@ public class Matrix {
 		}
 
 		//主成分ある列の上の成分をすべて0にする
-		for(int r = 0; r < this.row; r++) {
+		for(int r = this.row - 1; r > 0; r--) {
 			for(int c = 0; c < this.column; c++) {
-//				aaa
+				if (!this.matrix[r][c].equals("0")) {
+					for (int i = 1; r - i >= 0; i++) {
+						System.out.println("aa" + this.matrix[r][c]);
+						System.out.println(this.matrix[r - i][c]);
+						rowBasicTransformation2_d(r, this.matrix[r - i][c], r - i);
+					}
+					c = this.column;	//この行の捜査終了
+				}
+				//デバッグ用
+				System.out.println();
+				System.out.println("現在は " + r + "行" + c + "列 です");
+				this.print();
 			}
 		}
 	}
