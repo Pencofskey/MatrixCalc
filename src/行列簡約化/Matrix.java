@@ -252,3 +252,4 @@ public class Matrix {
 		this.outSideErrorCheck(row, 0);
 	}
 }
+//git push test
