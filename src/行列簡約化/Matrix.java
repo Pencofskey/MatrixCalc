@@ -187,7 +187,7 @@ public class Matrix {
 							//デバッグ用
 							this.print();
 							System.out.println("\n0が下に来るように行を入れ替える | " + r + "行 <-> " + i + " 行\n");
-//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
+							//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 							i = this.row; //入れ替え終了
 						}
@@ -197,23 +197,24 @@ public class Matrix {
 				//r行目の先頭の値が1になるようにr行目全体をr行目の先頭の値で割り、r行目より下の行の先頭が0になるように引く
 				if (!this.matrix[r][c].equals("0")) { //現在の要素が0でない
 					if (!this.matrix[r][c].equals("1")) {
-						
+
 						//デバッグ用
 						this.print();
 						System.out.println("\n行の主成分を1にする | " + r + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n");
-//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
-						
+						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
+
 						rowBasicTransformation1_w(r, this.matrix[r][c]);
 					}
-					for (int i = 1; r + i < this.row && r < this.row - 1; i++) {	//最後の行でない場合のみ実行
-						if(!this.matrix[r + i][c].equals("0")) {
-							
+					for (int i = 1; r + i < this.row && r < this.row - 1; i++) { //最後の行でない場合のみ実行
+						if (!this.matrix[r + i][c].equals("0")) {
+
 							//デバッグ用
 							this.print();
 							System.out.println(
-									"\n主成分より下の行の成分を0にする | " + (r + i) + "行 - " + r + "行 × " + this.matrix[r + i][c] + "\n");
-//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
-							
+									"\n主成分より下の行の成分を0にする | " + (r + i) + "行 - " + r + "行 × " + this.matrix[r + i][c]
+											+ "\n");
+							//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
+
 							rowBasicTransformation2_d(r, this.matrix[r + i][c], r + i);
 						}
 					}
@@ -230,8 +231,9 @@ public class Matrix {
 
 						//デバッグ用
 						this.print();
-						System.out.println("\n主成分より上にある成分を0にする | " + (r - i) + "行 - " + r + "行 × " + this.matrix[r - i][c] + "\n");
-//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
+						System.out.println(
+								"\n主成分より上にある成分を0にする | " + (r - i) + "行 - " + r + "行 × " + this.matrix[r - i][c] + "\n");
+						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 						rowBasicTransformation2_d(r, this.matrix[r - i][c], r - i);
 					}
@@ -252,4 +254,3 @@ public class Matrix {
 		this.outSideErrorCheck(row, 0);
 	}
 }
-//git push test
