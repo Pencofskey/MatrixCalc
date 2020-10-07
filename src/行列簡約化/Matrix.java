@@ -44,7 +44,7 @@ public class Matrix {
 				if (bunbo == 0) {
 					bunbo = 1;
 				}
-				this.matrix[r][c] = "" + Fraction.buildFraction(bunshi, bunbo);
+				this.matrix[r][c] = "" + Fraction.yakubun(Fraction.buildFraction(bunshi, bunbo));
 			}
 		}
 	}
@@ -60,7 +60,7 @@ public class Matrix {
 				}
 			}
 		}
-		
+
 		//列数描画
 		System.out.print("      ");
 		for (int column = 0; column < this.column; column++) {
@@ -91,7 +91,7 @@ public class Matrix {
 				System.out.print(" ");
 			}
 			System.out.print(row + 1 + " ");
-			
+
 			//要素と縦棒描画
 			System.out.print("| ");		//1番左上の縦棒描画
 			for (int column = 0; column < this.getColumn(); column++) {
@@ -141,7 +141,7 @@ public class Matrix {
 			fRow = new java.util.Scanner(System.in).nextInt() - 1;
 			System.out.print("列 : ");
 			fColumn = new java.util.Scanner(System.in).nextInt() - 1;
-			if(outSideEroorCheckInterface(fRow, fColumn)) {	//行列外要素指定チェック
+			if(outSideEroorCheckInterface(fRow + 1, fColumn + 1)) {	//行列外要素指定チェック
 				System.out.println("行列のサイズ外の行もしくは列を指定しています");
 			}
 		}while(outSideEroorCheckInterface(fRow + 1, fColumn + 1));
@@ -240,13 +240,13 @@ public class Matrix {
 				if (allZero == false && validColumnOrder == false && this.matrix[r][c].equals("0")) { //c列の下の行がすべて0でない場合 かつ 列が正しく並んでいない場合(0より下の行に非0がある)
 					for (int i = r + 1; i < this.row; i++) {
 						if (this.matrix[i][c].equals("0") == false) {
-							rowBasicTransformation3(r, i); //i行c列が0でない数の時にi行とr行を入れ替える
 
 							//デバッグ用
 							this.print();
-							System.out.println("\n0が下に来るように行を入れ替える | " + r + "行 <-> " + i + " 行\n");
+							System.out.println("\n0が下に来るように行を入れ替える | " + (r+1) + "行 <-> " + (i+1) + " 行\n");
 							//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
+							rowBasicTransformation3(r, i); //i行c列が0でない数の時にi行とr行を入れ替える
 							i = this.row; //入れ替え終了
 						}
 					}
@@ -258,19 +258,17 @@ public class Matrix {
 
 						//デバッグ用
 						this.print();
-						System.out.println("\n行の主成分を1にする | " + r + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n");
+						System.out.println("\n行の主成分を1にする | " + (r+1) + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n");
 						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 						rowBasicTransformation1_w(r, this.matrix[r][c]);
 					}
-					for (int i = 1; r + i < this.row && r < this.row - 1; i++) { //最後の行でない場合のみ実行
+					for (int i = 1; r + i < this.row; i++) { //最後の行でない場合のみ実行	<------ bug
 						if (!this.matrix[r + i][c].equals("0")) {
 
 							//デバッグ用
 							this.print();
-							System.out.println(
-									"\n主成分より下の行の成分を0にする | " + (r + i) + "行 - " + r + "行 × " + this.matrix[r + i][c]
-											+ "\n");
+							System.out.println("\n主成分より下の行の成分を0にする | " + (r + 1 + i) + "行 - " + (r+1) + "行 × " + this.matrix[r + i][c] + "\n");
 							//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 							rowBasicTransformation2_d(r, this.matrix[r + i][c], r + i);
@@ -290,7 +288,7 @@ public class Matrix {
 						//デバッグ用
 						this.print();
 						System.out.println(
-								"\n主成分より上にある成分を0にする | " + (r - i) + "行 - " + r + "行 × " + this.matrix[r - i][c] + "\n");
+								"\n主成分より上にある成分を0にする | " + ((r+1) - i) + "行 - " + (r+1) + "行 × " + this.matrix[r - i][c] + "\n");
 						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 						rowBasicTransformation2_d(r, this.matrix[r - i][c], r - i);

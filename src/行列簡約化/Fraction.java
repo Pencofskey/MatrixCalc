@@ -100,7 +100,7 @@ public class Fraction {
 		return buildFraction(getBunshi(b) / saidaikouyakusuu, getBunbo(b) / saidaikouyakusuu);
 	}
 
-	//b2に通分されたb1を返します
+	//b2に通分されたb1を返します どちらかに0が代入された場合はそのままの分数を返します
 	public static String tsubun(String b1, String b2) {
 		int saishoukoubaisu = 1; //最小公倍数の初期化
 		for (; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; saishoukoubaisu++); //1から順にb1,b2の分母両方で割り切れる整数を探す
@@ -130,11 +130,28 @@ public class Fraction {
 
 	//b1+b2 を返します
 	public static String tasu(String b1, String b2) {
-		return yakubun(buildFraction(getBunshi(tsubun(b1, b2)) + getBunshi(tsubun(b2, b1)), getBunbo(tsubun(b1, b2))));
+		String bunsu;
+		if(b1.equals("0") || b2.equals("0")) {	//0から引く場合の処理
+			bunsu = buildFraction(getBunshi(b1) + getBunshi(b2), getBunbo(b1) * getBunbo(b2));
+		}else {	
+			bunsu = yakubun(
+					buildFraction(
+							getBunshi(tsubun(b1, b2)) + getBunshi(tsubun(b2, b1)), 
+							getBunbo(tsubun(b1, b2))
+							)
+					);
+		}
+		return bunsu;
 	}
 
 	//b1-b2 を返します
 	public static String hiku(String b1, String b2) {
-		return yakubun(buildFraction(getBunshi(tsubun(b1, b2)) - getBunshi(tsubun(b2, b1)), getBunbo(tsubun(b1, b2))));
+		String bunsu;
+		if (b1.equals("0") || b2.equals("0")) {	//0から引く場合の処理
+			bunsu = buildFraction(getBunshi(b1) - getBunshi(b2), getBunbo(b1) * getBunbo(b2));
+		}else {
+			bunsu = yakubun(buildFraction(getBunshi(tsubun(b1, b2)) - getBunshi(tsubun(b2, b1)), getBunbo(tsubun(b1, b2))));
+		}
+		return bunsu;
 	}
 }

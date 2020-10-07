@@ -42,13 +42,23 @@ public class test {
 //		System.out.println(Fraction.waru("-32/24", "16/48"));
 //		System.out.println(Fraction.gyakusu("1/2"));
 //		System.out.println(Fraction.tasu("3", "-34"));
+//		System.out.println(Fraction.hiku("0", "3/7"));	// <-------- bug	修正済み
+//		System.out.println(Fraction.tasu("0", "-" + "3/7"));  //これでもダメ 分数の足し算引き算メソッドに問題あり	修正済み
+//		System.out.println(Fraction.tsubun("0", "3/7"));	//	0
+//		System.out.println(Fraction.tsubun("3/7", "0"));	//  3/7
 
 
-		//printer,inputerテスト
-		Matrix m = new Matrix(3, 4, 5);
-//		m.inputData();
+//		Matrix m = new Matrix(3, 4, 10);
+		Matrix m = new Matrix();
+		m.inputData();
 		m.print();
 		System.out.println();
+		
+		//行基本変形2のテスト
+//		m.rowBasicTransformation2_d(0, "1/2", 1);
+//		System.out.println("2行 - 1行 * 1/2\n");
+		
+		
 //		m.rowBasicTransformation1_w(0, "2");
 //		m.print();
 //		m.rowBasicTransformation2_d(0, "1", 2);
@@ -66,6 +76,7 @@ public class test {
 //		m.print();
 		m.hakidashi();
 		m.print();
+		
 
 	}
 
