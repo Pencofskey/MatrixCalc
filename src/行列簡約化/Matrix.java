@@ -24,6 +24,12 @@ public class Matrix {
 		System.out.print("列数：");
 		this.column = new java.util.Scanner(System.in).nextInt();
 		this.matrix = new String[row][column];
+		//行列初期化
+		for(int r = 0; r < this.row; r++) {
+			for(int c = 0; c < this.column; c++) {
+				this.matrix[r][c] = " ";
+			}
+		}
 		System.out.println(this.row + "x" + this.column + "型行列");
 	}
 
@@ -54,8 +60,20 @@ public class Matrix {
 				}
 			}
 		}
+		
+		//列数描画
+		System.out.print("      ");
+		for (int column = 0; column < this.column; column++) {
+			String columnS = "" + (column + 1);
+			System.out.print(column+1);
+			for(int i = 0; i < charCount + 4 - columnS.length(); i++) {
+				System.out.print(" ");
+			}
+		}
+		System.out.println();
 
-		System.out.print("+");
+		//1番上の横棒描画
+		System.out.print("    +");
 		for (int column = 0; column < this.getColumn(); column++) {
 			for (int i = 0; i < charCount + 3; i++) { //文字数に合わせてスペースを挿入し、列をそろえる
 				System.out.print("-");
@@ -63,23 +81,38 @@ public class Matrix {
 			System.out.print("+");
 		}
 		System.out.println();
+
+		//行列本体描画
 		for (int row = 0; row < this.getRow(); row++) {
-			System.out.print("| ");
+
+			//列数描画
+			String rowS = "" + (row + 1);
+			for (int i = 0; i < 3 - rowS.length(); i++) {
+				System.out.print(" ");
+			}
+			System.out.print(row + 1 + " ");
+			
+			//要素と縦棒描画
+			System.out.print("| ");		//1番左上の縦棒描画
 			for (int column = 0; column < this.getColumn(); column++) {
 				System.out.print(this.getMatrix()[row][column]);
-				for (int i = 0; i < charCount + 2 - this.getMatrix()[row][column].length(); i++) { //文字数に合わせてスペースを挿入し、列をそろえる
+				for (int i = 0; i < charCount + 2 - this.getMatrix()[row][column].length(); i++) { //(最大文字数+2-現在の要素の文字数)分スペースを挿入し、列をそろえる
 					System.out.print(" ");
 				}
-				System.out.print("| ");
+				System.out.print("| ");		//左端の縦棒描画
 			}
+
 			System.out.println();
-			System.out.print("+");
+
+			//横棒描画
+			System.out.print("    +");	//1番左上の交点描画
 			for (int column = 0; column < this.getColumn(); column++) {
-				for (int i = 0; i < charCount + 3; i++) { //文字数に合わせてスペースを挿入し、列をそろえる
+				for (int i = 0; i < charCount + 3; i++) { //文字数に合わせてスペースを挿入し、交点を縦棒の位置にそろえる
 					System.out.print("-");
 				}
-				System.out.print("+");
+				System.out.print("+");	//交点描画
 			}
+
 			System.out.println();
 		}
 	}
@@ -88,10 +121,35 @@ public class Matrix {
 	public void inputData() {
 		for (int row = 0; row < this.getRow(); row++) {
 			for (int column = 0; column < this.getColumn(); column++) {
+				System.out.println();
+				this.matrix[row][column] = "_";	//現在入力要素をマーキング
+				this.print();
 				System.out.print((row + 1) + "行" + (column + 1) + "列のデータを入力してください : "); //内部的にはrow行column列ですが、数学的に違和感がないように+1して表示
 				this.getMatrix()[row][column] = new java.util.Scanner(System.in).nextLine();
 			}
 		}
+	}
+
+	//データ修正
+	public void correctionData() {
+		System.out.println("修正するデータの行と列を指定してください");
+		int fRow;
+		int fColumn;
+		//修正箇所指定
+		do {
+			System.out.print("行 : ");
+			fRow = new java.util.Scanner(System.in).nextInt() - 1;
+			System.out.print("列 : ");
+			fColumn = new java.util.Scanner(System.in).nextInt() - 1;
+			if(outSideEroorCheckInterface(fRow, fColumn)) {	//行列外要素指定チェック
+				System.out.println("行列のサイズ外の行もしくは列を指定しています");
+			}
+		}while(outSideEroorCheckInterface(fRow + 1, fColumn + 1));
+		this.matrix[fRow][fColumn] = "_";	//修正箇所にマーキング
+		this.print();
+		System.out.print((fRow + 1) + "行" + (fColumn + 1) + "列のデータを入力してください : ");
+		this.getMatrix()[fRow][fColumn] = new java.util.Scanner(System.in).nextLine();
+		System.out.println();
 	}
 
 	//row行をratio倍する
@@ -252,5 +310,16 @@ public class Matrix {
 
 	public void outSideErrorCheck(int row) {
 		this.outSideErrorCheck(row, 0);
+	}
+
+	//ユーザが入力した行と列が行列のサイズ外を指定していないかどうかチェックします
+	public boolean outSideEroorCheckInterface(int row, int column) {
+		boolean err;
+		if (row <= 0 || row > this.row || column <= 0 || column > this.column) {	//ユーザの入力は1行1列から始まります
+			err = true;
+		}else {
+			err = false;
+		}
+		return err;		//エラーがあるときtrue, ないときfalseを返します
 	}
 }
