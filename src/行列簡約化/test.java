@@ -48,9 +48,9 @@ public class test {
 //		System.out.println(Fraction.tsubun("3/7", "0"));	//  3/7
 
 
-//		Matrix m = new Matrix(3, 4, 10);
-		Matrix m = new Matrix();
-		m.inputData();
+		Matrix m = new Matrix(3, 4, 10);	//デバッグ用自動行列生成
+//		Matrix m = new Matrix();
+//		m.inputData();		//データインプッタ
 		m.print();
 		System.out.println();
 		

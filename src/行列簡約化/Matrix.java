@@ -283,7 +283,7 @@ public class Matrix {
 		for (int r = this.row - 1; r > 0; r--) {
 			for (int c = 0; c < this.column; c++) {
 				if (!this.matrix[r][c].equals("0")) {
-					for (int i = 1; r - i >= 0; i++) {
+					for (int i = 1; r - i >= 0 && !this.matrix[r - i][c].equals("0"); i++) {
 
 						//デバッグ用
 						this.print();

@@ -100,13 +100,18 @@ public class Fraction {
 		return buildFraction(getBunshi(b) / saidaikouyakusuu, getBunbo(b) / saidaikouyakusuu);
 	}
 
-	//b2に通分されたb1を返します どちらかに0が代入された場合はそのままの分数を返します
+	//b2に通分されたb1を返します どちらかに0が代入された場合はb1をそのまま返します
 	public static String tsubun(String b1, String b2) {
 		int saishoukoubaisu = 1; //最小公倍数の初期化
-		for (; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; saishoukoubaisu++); //1から順にb1,b2の分母両方で割り切れる整数を探す
-		//		System.out.println(saishoukoubaisu);
-		return buildFraction(getBunshi(b1) * saishoukoubaisu / getBunbo(b1),
-				getBunbo(b1) * saishoukoubaisu / getBunbo(b1));
+		String bunsu;
+		if(getBunshi(b1) == 0 || getBunshi(b2) == 0) {
+			bunsu = b1;
+		}else {			
+			for (; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; saishoukoubaisu++); //1から順にb1,b2の分母両方で割り切れる整数を探す
+			//		System.out.println(saishoukoubaisu);
+			bunsu = buildFraction(getBunshi(b1) * saishoukoubaisu / getBunbo(b1), getBunbo(b1) * saishoukoubaisu / getBunbo(b1));
+		}
+		return bunsu;
 	}
 
 	//b1 * b2 を返します
