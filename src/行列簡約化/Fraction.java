@@ -4,6 +4,7 @@ public class Fraction {
 
 	//String型の分数bの分母を取得します
 	public static int getBunbo(String b) {
+		correctFraction(b);		//分数の形を整える
 		int slash = b.indexOf("/");
 		int bunbo = 0;
 		if (slash == -1) { //スラッシュがない場合
@@ -27,6 +28,7 @@ public class Fraction {
 	//String型の分数bの分子を取得します
 	//整数を取得する場合もこのメソッドを使用してください
 	public static int getBunshi(String b) {
+		correctFraction(b);
 		int slash = b.indexOf("/");
 		int bunshi = 0;
 		int negative = 1;
@@ -64,6 +66,29 @@ public class Fraction {
 		return negative * bunshi;
 	}
 
+	//分数の形を整える
+	public static String correctFraction(String b) {
+		String bunsu;
+		bunsu = b.replace(" ", "");	//余分なスペースを削除
+		String[] bunshibunbo = b.split("[/]");
+		for(int i = 0; i < bunshibunbo.length; i++) {	//先頭のゼロを削除
+			bunshibunbo[i] = bunshibunbo[i].replaceFirst("^0*", "");
+		}
+		if(bunshibunbo.length == 1) {
+			bunsu = bunshibunbo[0];
+		}else if (bunshibunbo.length == 2){
+			bunsu = bunshibunbo[0] + "/" + bunshibunbo[1];
+		}
+		return bunsu;
+	}
+
+//	public static void checkFraction(String b) {
+//		if(b.matches("[0-9][/]")) {
+//		}else {
+//			throw new IllegalArgumentException("分数に文字が混入");
+//		}
+//	}
+
 	//2つの整数を読み込み、String型の分数を返します
 	public static String buildFraction(int bunshi, int bunbo) {
 		String bunsu;
@@ -73,13 +98,14 @@ public class Fraction {
 			throw new IllegalArgumentException("分母に0が代入");
 		} else if (bunshi == 0) { //分子0の場合整数の0を代入
 			bunsu = "0";
-		} else if (bunbo < 0){
+		} else if (bunbo < 0){	//分母が負の場合分子分母両方に-1をかける
 			bunshi *= -1;
 			bunbo *= -1;
 			bunsu = bunshi + "/" + bunbo;
 		} else {
 			bunsu = bunshi + "/" + bunbo;
 		}
+		correctFraction(bunsu);
 		return bunsu;
 	}
 
@@ -106,7 +132,7 @@ public class Fraction {
 		String bunsu;
 		if(getBunshi(b1) == 0 || getBunshi(b2) == 0) {
 			bunsu = b1;
-		}else {			
+		}else {
 			for (; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; saishoukoubaisu++); //1から順にb1,b2の分母両方で割り切れる整数を探す
 			//		System.out.println(saishoukoubaisu);
 			bunsu = buildFraction(getBunshi(b1) * saishoukoubaisu / getBunbo(b1), getBunbo(b1) * saishoukoubaisu / getBunbo(b1));
@@ -138,10 +164,10 @@ public class Fraction {
 		String bunsu;
 		if(b1.equals("0") || b2.equals("0")) {	//0から引く場合の処理
 			bunsu = buildFraction(getBunshi(b1) + getBunshi(b2), getBunbo(b1) * getBunbo(b2));
-		}else {	
+		}else {
 			bunsu = yakubun(
 					buildFraction(
-							getBunshi(tsubun(b1, b2)) + getBunshi(tsubun(b2, b1)), 
+							getBunshi(tsubun(b1, b2)) + getBunshi(tsubun(b2, b1)),
 							getBunbo(tsubun(b1, b2))
 							)
 					);

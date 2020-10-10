@@ -24,6 +24,7 @@ public class test {
 
 		//分母0代入例外テスト
 //		Fraction.buildFraction(23, 0);
+		
 
 		//負の分数テスト
 //		System.out.println(Fraction.getBunbo("-12/22"));
@@ -46,6 +47,8 @@ public class test {
 //		System.out.println(Fraction.tasu("0", "-" + "3/7"));  //これでもダメ 分数の足し算引き算メソッドに問題あり	修正済み
 //		System.out.println(Fraction.tsubun("0", "3/7"));	//	0
 //		System.out.println(Fraction.tsubun("3/7", "0"));	//  3/7
+//		System.out.println(Fraction.tsubun("-2/-3", "-4/7"));
+		System.out.println(Fraction.correctFraction("0003"));
 
 
 		Matrix m = new Matrix(3, 4, 10);	//デバッグ用自動行列生成
