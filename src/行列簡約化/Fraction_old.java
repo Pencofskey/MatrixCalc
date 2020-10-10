@@ -5,28 +5,22 @@ public class Fraction {
 	//String型の分数bの分母を取得します
 	public static int getBunbo(String b) {
 		correctFraction(b);		//分数の形を整える
+		int slash = b.indexOf("/");
 		int bunbo = 0;
-//		int slash = b.indexOf("/");
-//		if (slash == -1) { //スラッシュがない場合
-//			bunbo = 1;
-//		} else {
-//			String bunboS = b.substring(slash + 1, b.length()); //スラッシュから後ろを切り出し
-//			//				System.out.println(bunboS);
-//			char[] bunboC = bunboS.toCharArray(); //一文字ずつchar配列に代入
-//			int[] bunboD = new int[bunboC.length];
-//			for (int i = 0; i < bunboC.length; i++) {
-//				bunboD[i] = bunboC[i] - 48; //char配列をint配列に代入
-//				//						System.out.println(bunboD[i]);
-//			}
-//			for (int i = 0; i < bunboD.length; i++) {
-//				bunbo += bunboD[i] * Math.pow(10, bunboD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
-//			}
-//		}
-		String[] bunboS = b.split("/");
-		if(bunboS.length == 2) {	//スラッシュある時
-			bunbo = Integer.parseInt(bunboS[1]);
-		}else if (bunboS.length == 1) {		//スラッシュないとき
+		if (slash == -1) { //スラッシュがない場合
 			bunbo = 1;
+		} else {
+			String bunboS = b.substring(slash + 1, b.length()); //スラッシュから後ろを切り出し
+			//				System.out.println(bunboS);
+			char[] bunboC = bunboS.toCharArray(); //一文字ずつchar配列に代入
+			int[] bunboD = new int[bunboC.length];
+			for (int i = 0; i < bunboC.length; i++) {
+				bunboD[i] = bunboC[i] - 48; //char配列をint配列に代入
+				//						System.out.println(bunboD[i]);
+			}
+			for (int i = 0; i < bunboD.length; i++) {
+				bunbo += bunboD[i] * Math.pow(10, bunboD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
+			}
 		}
 		return bunbo;
 	}
@@ -35,47 +29,41 @@ public class Fraction {
 	//整数を取得する場合もこのメソッドを使用してください
 	public static int getBunshi(String b) {
 		correctFraction(b);
+		int slash = b.indexOf("/");
 		int bunshi = 0;
-		String[] bunshiS = b.split("/");
-		if(bunshiS.length == 2) {		//スラッシュある時
-			bunshi = Integer.parseInt(bunshiS[0]);
-		}else if (bunshiS.length == 1) {		//スラッシュないとき
-			bunshi = Integer.parseInt(b);
+		int negative = 1;
+		if (slash == -1) { //スラッシュがない場合
+			char[] bunshiC = b.toCharArray();
+			int[] bunshiD = new int[bunshiC.length];
+			for (int i = 0; i < bunshiC.length; i++) {
+				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
+					negative = -1;
+				} else {
+					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
+				}
+			}
+			for (int i = 0; i < bunshiD.length; i++) {
+				//				System.out.println(bunshiD[i]);
+				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
+			}
+		} else { //スラッシュがある場合
+			String bunshiS = b.substring(0, slash); //スラッシュから前を切り出し
+			//				System.out.println(bunshiS);
+			char[] bunshiC = bunshiS.toCharArray(); //一文字ずつchar配列に代入
+			int[] bunshiD = new int[bunshiC.length];
+			for (int i = 0; i < bunshiC.length; i++) {
+				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
+					negative = -1;
+				} else {
+					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
+					//			System.out.println(bunshiD[i]);
+				}
+			}
+			for (int i = 0; i < bunshiD.length; i++) {
+				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
+			}
 		}
-//		int negative = 1;
-//		int slash = b.indexOf("/");
-//		if (slash == -1) { //スラッシュがない場合
-//			char[] bunshiC = b.toCharArray();
-//			int[] bunshiD = new int[bunshiC.length];
-//			for (int i = 0; i < bunshiC.length; i++) {
-//				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
-//					negative = -1;
-//				} else {
-//					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
-//				}
-//			}
-//			for (int i = 0; i < bunshiD.length; i++) {
-//				//				System.out.println(bunshiD[i]);
-//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
-//			}
-//		} else { //スラッシュがある場合
-//			String bunshiS = b.substring(0, slash); //スラッシュから前を切り出し
-//			//				System.out.println(bunshiS);
-//			char[] bunshiC = bunshiS.toCharArray(); //一文字ずつchar配列に代入
-//			int[] bunshiD = new int[bunshiC.length];
-//			for (int i = 0; i < bunshiC.length; i++) {
-//				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
-//					negative = -1;
-//				} else {
-//					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
-//					//			System.out.println(bunshiD[i]);
-//				}
-//			}
-//			for (int i = 0; i < bunshiD.length; i++) {
-//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
-//			}
-//		}
-		return bunshi;
+		return negative * bunshi;
 	}
 
 	//分数の形を整える

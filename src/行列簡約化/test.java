@@ -48,10 +48,12 @@ public class test {
 //		System.out.println(Fraction.tsubun("0", "3/7"));	//	0
 //		System.out.println(Fraction.tsubun("3/7", "0"));	//  3/7
 //		System.out.println(Fraction.tsubun("-2/-3", "-4/7"));
-		System.out.println(Fraction.correctFraction("0003"));
+//		System.out.println(Fraction.correctFraction("0003"));	//最初のゼロを削除する
+//		System.out.println(Fraction.getBunshi("-12/4"));		//getBunshi新バージョンテスト
+//		System.out.println(Fraction.getBunbo("-3/2"));
 
 
-		Matrix m = new Matrix(3, 4, 10);	//デバッグ用自動行列生成
+		Matrix m = new Matrix(4, 6, 10);	//デバッグ用自動行列生成
 //		Matrix m = new Matrix();
 //		m.inputData();		//データインプッタ
 		m.print();
