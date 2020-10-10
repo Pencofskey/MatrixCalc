@@ -1,0 +1,2 @@
+Main-Class: 行列簡約化.Main
+

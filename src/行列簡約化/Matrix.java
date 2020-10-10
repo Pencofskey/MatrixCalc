@@ -40,14 +40,14 @@ public class Matrix {
 			}else {
 				err = true;
 			}
-			if(err) {				
+			if(err) {
 				System.out.println("行数は1桁の自然数で指定");
 			}
 		}while(err);
 
 		//行列初期化
 		this.reset();
-		
+
 		System.out.println(this.row + "x" + this.column + "型行列");
 	}
 
@@ -66,7 +66,7 @@ public class Matrix {
 			}
 		}
 	}
-	
+
 	//行列リセット
 	public void reset() {
 		this.matrix = new String[this.row][this.column];
@@ -77,24 +77,36 @@ public class Matrix {
 		}
 	}
 
+	//列内最大文字数走査
+	public int detectColumnMax(int c) {	//c列の最大文字数を返します
+		int max = 0;
+		for(int i = 0; i < this.row; i ++) {
+			if(max < this.matrix[i][c].length()) {
+				max = this.matrix[i][c].length();
+			}
+		}
+		return max;
+	}
+
+
 	//行列出力
 	public void print() {
 		//行列内の最長文字数を走査
-		int charCount = 0;
-		for (int r = 0; r < this.row; r++) {
-			for (int c = 0; c < this.column; c++) {
-				if (charCount < this.matrix[r][c].length()) {
-					charCount = this.matrix[r][c].length(); //最大を上書き
-				}
-			}
-		}
+//		int charCount = 0;
+//		for (int r = 0; r < this.row; r++) {
+//			for (int c = 0; c < this.column; c++) {
+//				if (charCount < this.matrix[r][c].length()) {
+//					charCount = this.matrix[r][c].length(); //最大を上書き
+//				}
+//			}
+//		}
 
 		//列数描画
 		System.out.print("      ");
 		for (int column = 0; column < this.column; column++) {
 			String columnS = "" + (column + 1);
 			System.out.print(column + 1);
-			for (int i = 0; i < charCount + 4 - columnS.length(); i++) {
+			for (int i = 0; i < detectColumnMax(column) + 4 - columnS.length(); i++) {
 				System.out.print(" ");
 			}
 		}
@@ -103,7 +115,7 @@ public class Matrix {
 		//1番上の横棒描画
 		System.out.print("    +");
 		for (int column = 0; column < this.getColumn(); column++) {
-			for (int i = 0; i < charCount + 3; i++) { //文字数に合わせてスペースを挿入し、列をそろえる
+			for (int i = 0; i < detectColumnMax(column) + 3; i++) { //文字数に合わせてスペースを挿入し、列をそろえる
 				System.out.print("-");
 			}
 			System.out.print("+");
@@ -124,7 +136,7 @@ public class Matrix {
 			System.out.print("| "); //1番左上の縦棒描画
 			for (int column = 0; column < this.getColumn(); column++) {
 				System.out.print(this.getMatrix()[row][column]);
-				for (int i = 0; i < charCount + 2 - this.getMatrix()[row][column].length(); i++) { //(最大文字数+2-現在の要素の文字数)分スペースを挿入し、列をそろえる
+				for (int i = 0; i < detectColumnMax(column) + 2 - this.getMatrix()[row][column].length(); i++) { //(最大文字数+2-現在の要素の文字数)分スペースを挿入し、列をそろえる
 					System.out.print(" ");
 				}
 				System.out.print("| "); //左端の縦棒描画
@@ -135,7 +147,7 @@ public class Matrix {
 			//横棒描画
 			System.out.print("    +"); //1番左上の交点描画
 			for (int column = 0; column < this.getColumn(); column++) {
-				for (int i = 0; i < charCount + 3; i++) { //文字数に合わせてスペースを挿入し、交点を縦棒の位置にそろえる
+				for (int i = 0; i < detectColumnMax(column) + 3; i++) { //文字数に合わせてスペースを挿入し、交点を縦棒の位置にそろえる
 					System.out.print("-");
 				}
 				System.out.print("+"); //交点描画
