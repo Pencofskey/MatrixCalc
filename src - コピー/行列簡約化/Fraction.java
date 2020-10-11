@@ -3,28 +3,28 @@ package 行列簡約化;
 public class Fraction {
 
 	//String型の分数bの分母を取得します
-	public static long getBunbo(String b) {
+	public static int getBunbo(String b) {
 //		correctFraction(b);		//分数の形を整える
-		long bunbo = 0;
-//		long slash = b.indexOf("/");
+		int bunbo = 0;
+//		int slash = b.indexOf("/");
 //		if (slash == -1) { //スラッシュがない場合
 //			bunbo = 1;
 //		} else {
 //			String bunboS = b.substring(slash + 1, b.length()); //スラッシュから後ろを切り出し
-//			//				System.out.prlongln(bunboS);
+//			//				System.out.println(bunboS);
 //			char[] bunboC = bunboS.toCharArray(); //一文字ずつchar配列に代入
-//			long[] bunboD = new long[bunboC.length];
-//			for (long i = 0; i < bunboC.length; i++) {
-//				bunboD[i] = bunboC[i] - 48; //char配列をlong配列に代入
-//				//						System.out.prlongln(bunboD[i]);
+//			int[] bunboD = new int[bunboC.length];
+//			for (int i = 0; i < bunboC.length; i++) {
+//				bunboD[i] = bunboC[i] - 48; //char配列をint配列に代入
+//				//						System.out.println(bunboD[i]);
 //			}
-//			for (long i = 0; i < bunboD.length; i++) {
-//				bunbo += bunboD[i] * Math.pow(10, bunboD.length - i - 1); //long配列を最終的にlong型としてまとめ分母を算出
+//			for (int i = 0; i < bunboD.length; i++) {
+//				bunbo += bunboD[i] * Math.pow(10, bunboD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
 //			}
 //		}
 		String[] bunboS = b.split("/");
 		if(bunboS.length == 2) {	//スラッシュある時
-			bunbo = Long.parseLong(bunboS[1]);
+			bunbo = Integer.parseInt(bunboS[1]);
 		}else if (bunboS.length == 1) {		//スラッシュないとき
 			bunbo = 1;
 		}else if (bunboS.equals("0")) {
@@ -35,46 +35,46 @@ public class Fraction {
 
 	//String型の分数bの分子を取得します
 	//整数を取得する場合もこのメソッドを使用してください
-	public static long getBunshi(String b) {
+	public static int getBunshi(String b) {
 //		correctFraction(b);
-		long bunshi = 0;
+		int bunshi = 0;
 		String[] bunshiS = b.split("/");
 		if(bunshiS.length == 2) {		//スラッシュある時
-			bunshi = Long.parseLong(bunshiS[0]);
+			bunshi = Integer.parseInt(bunshiS[0]);
 		}else if (bunshiS.length == 1) {		//スラッシュないとき
-			bunshi = Long.parseLong(b);
+			bunshi = Integer.parseInt(b);
 		}
-//		long negative = 1;
-//		long slash = b.indexOf("/");
+//		int negative = 1;
+//		int slash = b.indexOf("/");
 //		if (slash == -1) { //スラッシュがない場合
 //			char[] bunshiC = b.toCharArray();
-//			long[] bunshiD = new long[bunshiC.length];
-//			for (long i = 0; i < bunshiC.length; i++) {
+//			int[] bunshiD = new int[bunshiC.length];
+//			for (int i = 0; i < bunshiC.length; i++) {
 //				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
 //					negative = -1;
 //				} else {
-//					bunshiD[i] = bunshiC[i] - 48; //char配列をlong配列に代入
+//					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
 //				}
 //			}
-//			for (long i = 0; i < bunshiD.length; i++) {
-//				//				System.out.prlongln(bunshiD[i]);
-//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //long配列を最終的にlong型としてまとめ分母を算出
+//			for (int i = 0; i < bunshiD.length; i++) {
+//				//				System.out.println(bunshiD[i]);
+//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
 //			}
 //		} else { //スラッシュがある場合
 //			String bunshiS = b.substring(0, slash); //スラッシュから前を切り出し
-//			//				System.out.prlongln(bunshiS);
+//			//				System.out.println(bunshiS);
 //			char[] bunshiC = bunshiS.toCharArray(); //一文字ずつchar配列に代入
-//			long[] bunshiD = new long[bunshiC.length];
-//			for (long i = 0; i < bunshiC.length; i++) {
+//			int[] bunshiD = new int[bunshiC.length];
+//			for (int i = 0; i < bunshiC.length; i++) {
 //				if (bunshiC[i] == '-') { //"-"があったときにnegativeに-1を代入
 //					negative = -1;
 //				} else {
-//					bunshiD[i] = bunshiC[i] - 48; //char配列をlong配列に代入
-//					//			System.out.prlongln(bunshiD[i]);
+//					bunshiD[i] = bunshiC[i] - 48; //char配列をint配列に代入
+//					//			System.out.println(bunshiD[i]);
 //				}
 //			}
-//			for (long i = 0; i < bunshiD.length; i++) {
-//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //long配列を最終的にlong型としてまとめ分母を算出
+//			for (int i = 0; i < bunshiD.length; i++) {
+//				bunshi += bunshiD[i] * Math.pow(10, bunshiD.length - i - 1); //int配列を最終的にint型としてまとめ分母を算出
 //			}
 //		}
 		return bunshi;
@@ -104,7 +104,7 @@ public class Fraction {
 //	}
 
 	//2つの整数を読み込み、String型の分数を返します
-	public static String buildFraction(long bunshi, long bunbo) {
+	public static String buildFraction(int bunshi, int bunbo) {
 		StringBuilder bunsu = new StringBuilder();
 		if (bunbo == 1) { //分母が1の時に分子だけを返す
 			bunsu.append(bunshi);
@@ -150,13 +150,13 @@ public class Fraction {
 		}
 		saidaikouyakusuu = s;
 		
-//		for (long i = 2; i <= Math.min(bunbo, bunshi); i++) { //分母と分子どちらか小さい方の値まで繰り返し
+//		for (int i = 2; i <= Math.min(bunbo, bunshi); i++) { //分母と分子どちらか小さい方の値まで繰り返し
 //			if (bunshi % i == 0 && bunbo % i == 0) { //分母と分子どちらでも割り切れるときに最大公約数を代入
 //				saidaikouyakusuu = i;
 //			}
 //		}
-//						System.out.prlongln(saidaikouyakusuu);
-		return buildFraction((getBunshi(b) / saidaikouyakusuu), (getBunbo(b) / saidaikouyakusuu));
+//						System.out.println(saidaikouyakusuu);
+		return buildFraction((int)(getBunshi(b) / saidaikouyakusuu), (int)(getBunbo(b) / saidaikouyakusuu));
 	}
 
 	//b2に通分されたb1を返します どちらかに0が代入された場合はb1をそのまま返します
@@ -169,19 +169,19 @@ public class Fraction {
 			long d = Math.max(getBunbo(b1), getBunbo(b2));
 			long s = Math.min(getBunbo(b1), getBunbo(b2));
 			long r = d % s;
-			for (long i = 1; r != 0;) {
+			for (int i = 1; r != 0;) {
 				d = s;
 				s = r;
 				r = d % r;
 			}
 			saishoukoubaisu = getBunbo(b1) * getBunbo(b2) / s;
 			
-//			for (long i = 1; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; i++) {	//1から順にb1,b2の分母両方で割り切れる整数を探す
+//			for (int i = 1; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; i++) {	//1から順にb1,b2の分母両方で割り切れる整数を探す
 //				saishoukoubaisu = i;
-//				System.out.prlongln(saishoukoubaisu);
+//				System.out.println(saishoukoubaisu);
 //			}
-//					System.out.prlongln(saishoukoubaisu);
-			bunsu.append(buildFraction((getBunshi(b1) * saishoukoubaisu) / getBunbo(b1), (getBunbo(b1) * saishoukoubaisu / getBunbo(b1))));
+//					System.out.println(saishoukoubaisu);
+			bunsu.append(buildFraction((int)(getBunshi(b1) * saishoukoubaisu) / getBunbo(b1), (int)(getBunbo(b1) * saishoukoubaisu / getBunbo(b1))));
 		}
 		return bunsu.toString();
 	}
@@ -198,7 +198,7 @@ public class Fraction {
 
 	// 1/b を返します
 	public static String gyakusu(String b) {
-		long pn = 1;
+		int pn = 1;
 		if (getBunshi(b) < 0) {
 			pn = -1;
 		}

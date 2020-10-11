@@ -1,1 +1,1 @@
-java -jar MatrixCalc.jar
+java -jar "%1"
