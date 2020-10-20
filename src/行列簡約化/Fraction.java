@@ -106,7 +106,7 @@ public class Fraction {
 	//2つの整数を読み込み、String型の分数を返します
 	public static String buildFraction(long bunshi, long bunbo) {
 		StringBuilder bunsu = new StringBuilder();
-		if (bunbo == 1) { //分母が1の時に分子だけを返す
+		if (bunbo == 1 || bunbo == -1) { //分母が1の時に分子だけを返す
 			bunsu.append(bunshi);
 		} else if (bunbo == 0) { //分母ゼロ例外処理
 			throw new IllegalArgumentException("分母に0が代入");
@@ -130,18 +130,18 @@ public class Fraction {
 	//約分されたbを返します
 	public static String yakubun(String b) {
 		long bunshi = getBunshi(b);
-		if (bunshi == 0 || bunshi == 1) {
+		if (bunshi == 0 || bunshi == 1 || bunshi == -1) {
 			return b;
 		}
 		if (bunshi < 0) {
 			bunshi *= -1;
 		}
-		
+
 		//最大公約数 ユークリッド互除法
 		long bunbo = getBunbo(b);
-		long saidaikouyakusuu = 1; 
-		long d = Math.max(getBunshi(b), getBunbo(b));
-		long s = Math.min(getBunshi(b), getBunbo(b));
+		long saidaikouyakusuu = 1;
+		long d = Math.max(bunshi, getBunbo(b));
+		long s = Math.min(bunshi, getBunbo(b));
 		long r = d % s;
 		for (int i = 1; r != 0;) {
 			d = s;
@@ -149,7 +149,7 @@ public class Fraction {
 			r = d % r;
 		}
 		saidaikouyakusuu = s;
-		
+
 //		for (long i = 2; i <= Math.min(bunbo, bunshi); i++) { //分母と分子どちらか小さい方の値まで繰り返し
 //			if (bunshi % i == 0 && bunbo % i == 0) { //分母と分子どちらでも割り切れるときに最大公約数を代入
 //				saidaikouyakusuu = i;
@@ -175,7 +175,7 @@ public class Fraction {
 				r = d % r;
 			}
 			saishoukoubaisu = getBunbo(b1) * getBunbo(b2) / s;
-			
+
 //			for (long i = 1; saishoukoubaisu % getBunbo(b1) != 0 || saishoukoubaisu % getBunbo(b2) != 0; i++) {	//1から順にb1,b2の分母両方で割り切れる整数を探す
 //				saishoukoubaisu = i;
 //				System.out.prlongln(saishoukoubaisu);
@@ -198,18 +198,18 @@ public class Fraction {
 
 	// 1/b を返します
 	public static String gyakusu(String b) {
-		long pn = 1;
+		int pn = 1;
 		if (getBunshi(b) < 0) {
 			pn = -1;
 		}
-		return buildFraction(pn * getBunbo(b), pn * getBunshi(b));
+		return yakubun(buildFraction(pn * getBunbo(b), pn * getBunshi(b)));
 	}
 
 	//b1+b2 を返します
 	public static String tasu(String b1, String b2) {
 		StringBuilder bunsu = new StringBuilder();
 		if(b1.equals("0") || b2.equals("0")) {	//0から引く場合の処理
-			bunsu.append(buildFraction(getBunshi(b1) + getBunshi(b2), getBunbo(b1) * getBunbo(b2)));
+			bunsu.append(yakubun(buildFraction(getBunshi(b1) + getBunshi(b2), getBunbo(b1) * getBunbo(b2))));
 		}else {
 			bunsu.append(yakubun(
 					buildFraction(
@@ -225,7 +225,7 @@ public class Fraction {
 	public static String hiku(String b1, String b2) {
 		StringBuilder bunsu = new StringBuilder();
 		if (b1.equals("0") || b2.equals("0")) {	//0から引く場合の処理
-			bunsu.append(buildFraction(getBunshi(b1) - getBunshi(b2), getBunbo(b1) * getBunbo(b2)));
+			bunsu.append(yakubun(buildFraction(getBunshi(b1) - getBunshi(b2), getBunbo(b1) * getBunbo(b2))));
 		}else {
 			bunsu.append(yakubun(buildFraction(getBunshi(tsubun(b1, b2)) - getBunshi(tsubun(b2, b1)), getBunbo(tsubun(b1, b2)))));
 		}

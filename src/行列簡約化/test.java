@@ -24,7 +24,7 @@ public class test {
 
 		//分母0代入例外テスト
 //		Fraction.buildFraction(23, 0);
-		
+
 
 		//分数テスト
 //		System.out.println(Fraction.getBunbo("-12/22"));
@@ -54,8 +54,18 @@ public class test {
 //		System.out.println(Fraction.tsubun("1/1343631", "324874/3463787"));		// <-----------処理に時間かかりすぎ 総当たりで最大公約数探すのは遅い ユークリッド互除法を使うことで改善
 //		System.out.println(Fraction.getBunshi("324874/3463787"));
 //		System.out.println(Fraction.getBunbo("324874/3463787"));
-		System.out.println(Fraction.yakubun("-34/466"));
-		System.out.println(Fraction.tsubun("-345/523", "384/55"));
+//		System.out.println(Fraction.yakubun("-34/466"));
+//		System.out.println(Fraction.tsubun("-345/523", "384/55"));
+		System.out.println(Fraction.kakeru("-3/2", Fraction.gyakusu("3/2")));		// <-------------bug 1が帰る	修正済み
+		System.out.println(Fraction.kakeru("-3/2", "2/3"));		// <-----------bug これでもダメ 1が帰る	修正済み
+		System.out.println(Fraction.kakeru("-1/2", "2/1"));
+		System.out.println(Fraction.kakeru("-1/2", "2"));
+		System.out.println(Fraction.kakeru("-3/4", "1/3"));
+		System.out.println(Fraction.getBunshi("-3/2"));	//これはちゃんと動いてる
+		System.out.println(Fraction.buildFraction(-3, 2));	//これもOK
+		System.out.println(Fraction.yakubun("-3/2"));		//これもOK	やはり掛けるメソッドに問題あり
+		System.out.println(Fraction.yakubun("-5/5"));	// <-----------------bug 計算結果1×	修正済み
+		System.out.println(Fraction.yakubun("-6/2"));
 
 
 		Matrix m = new Matrix(4, 5, 60);	//デバッグ用自動行列生成
@@ -63,12 +73,12 @@ public class test {
 //		m.inputData();		//データインプッタ
 		m.print();
 		System.out.println();
-		
+
 		//行基本変形2のテスト
 //		m.rowBasicTransformation2_d(0, "1/2", 1);
 //		System.out.println("2行 - 1行 * 1/2\n");
-		
-		
+
+
 //		m.rowBasicTransformation1_w(0, "2");
 //		m.print();
 //		m.rowBasicTransformation2_d(0, "1", 2);
@@ -84,9 +94,9 @@ public class test {
 //		m.rowBasicTransformation2_a(0, "5", 1);
 //		m.rowBasicTransformation2_d(2, "5", 3);
 //		m.print();
-		m.hakidashi();
-		m.print();
-		
+//		m.hakidashi();
+//		m.print();
+
 
 	}
 
