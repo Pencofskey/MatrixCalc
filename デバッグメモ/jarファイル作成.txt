@@ -1,0 +1,2 @@
+javac -encoding UTF8 -sourcepath src -d bin src\s—ñŠÈ–ñ‰»\Main.java
+jar cvfm MatrixCalc.jar META-INF\MANIFEST.MF -C src .

@@ -1,5 +1,9 @@
 package 行列簡約化;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 public class Matrix {
 	private String[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
 	private int row; //行数
@@ -389,5 +393,28 @@ public class Matrix {
 			err = false;
 		}
 		return err; //エラーがあるときtrue, ないときfalseを返します
+	}
+	
+	//行列をクリップボードにコピーします
+	public void copyToClipBoard() {
+		StringBuilder cb = new StringBuilder();
+		for(int row = 0; row < this.row; row++) {
+			cb.append("[");
+			for(int column = 0; column < this.column; column++) {
+				cb.append(this.matrix[row][column]);
+				if(column < this.column - 1) {
+					cb.append(",");
+				}
+			}
+			cb.append("]");
+			if(row < this.row - 1) {
+				cb.append(",");
+			}
+		}
+		//debug
+//		System.out.println(cb.toString());
+	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+	    StringSelection selection = new StringSelection(cb.toString());
+	    clipboard.setContents(selection, selection);
 	}
 }
