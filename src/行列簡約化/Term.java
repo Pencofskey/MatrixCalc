@@ -53,5 +53,18 @@ public class Term {
 		ans.power = Fraction.add(t1.power, t2.power);
 		return ans;
 	}
+	
+	//この単項式を引数の単項式で割ります
+	public void div(Term t) {
+		this.ratio.div(t.ratio);
+		this.power.delta(t.power);
+	}
+	//単項式t1/t2の値を返します
+	public Term div(Term t1, Term t2) {
+		Term ans = new Term();
+		ans.ratio = Fraction.div(t1.ratio, t2.ratio);
+		ans.power = Fraction.delta(t1.power, t2.power);
+		return ans;
+	}
 
 }

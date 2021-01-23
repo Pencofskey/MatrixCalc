@@ -95,6 +95,7 @@ public class Polynomial {
 		System.out.println();
 	}
 
+	//多項式をかけます
 	public void multiply(Fraction f) {
 		for(int i = 0; i < this.length(); i++) {
 			getCoefficient(i).getRatio().multiply(f);
@@ -109,6 +110,12 @@ public class Polynomial {
 			for(int j = 0; j < temp2.length(); j++) {
 				this.setCoefficient(Term.multiply(temp1.getCoefficient(i), temp2.getCoefficient(j)));
 			}
+		}
+	}
+	
+	public void add(Polynomial p) {
+		for(int i = 0; i < p.length(); i++) {
+			this.setCoefficient(p.getCoefficient(i));
 		}
 	}
 	
