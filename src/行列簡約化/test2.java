@@ -27,9 +27,6 @@ public class test2 {
 		t3 = new Term(-4, 1, 1, 1);
 		t4 = new Term(6, 3, 0, 1);
 		
-		t2.div(t1);
-		t2.print();
-		
 		Term t5 = Term.multiply(t1, t2);
 //		t5.print();
 //		t1.print();
@@ -51,6 +48,12 @@ public class test2 {
 		p1.print();
 		p1.add(p2);
 		p1.print();
+		p1.div(t1);
+		p1.print();
+		
+		
+		Value v = new Value(p1, p2);
+		v.print();
 		
 		
 	}

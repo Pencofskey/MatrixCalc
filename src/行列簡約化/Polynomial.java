@@ -12,6 +12,11 @@ public class Polynomial {
 			x[i] = new Term();
 		}
 	}
+	//整数nの定数項のみの多項式
+	public Polynomial(int n) {
+		this();
+		this.setCoefficient(new Term(new Fraction(1, 1), new Fraction()));
+	}
 
 	public Term getCoefficient(int digree) {
 		return this.x[digree];
@@ -28,7 +33,7 @@ public class Polynomial {
 	public void setCoefficient(int i, Term coefficient) {
 		this.x[i] = coefficient;
 	}
-	
+
 	public void reset() {
 		for(int i = 0; i < this.digreeMax; i++) {
 			setCoefficient(i, new Term());
@@ -88,17 +93,25 @@ public class Polynomial {
 
 	//多項式を描画します
 	public void print() {
-//		this.sort();
+		System.out.println(this.toString());
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("");
+		this.sort();
 		for(int i = 0; i < this.length(); i++) {
-			System.out.print(x[i].toString() + " + ");
+			sb.append(x[i].toString());
+			if(i != this.length() -1) {
+				sb.append(" + ");
+			}
 		}
-		System.out.println();
+		return sb.toString();
 	}
 
-	//多項式をかけます
-	public void multiply(Fraction f) {
+	//単項式をかけます
+	public void multiply(Term t) {
 		for(int i = 0; i < this.length(); i++) {
-			getCoefficient(i).getRatio().multiply(f);
+			getCoefficient(i).multiply(t);
 		}
 	}
 	public void multiply(Polynomial p) {	//途中
@@ -112,13 +125,34 @@ public class Polynomial {
 			}
 		}
 	}
-	
+
+	//単項式で割ります
+	public void div(Term t) {
+		for(int i = 0; i < this.length(); i++) {
+			getCoefficient(i).div(t);
+		}
+	}
+
 	public void add(Polynomial p) {
 		for(int i = 0; i < p.length(); i++) {
 			this.setCoefficient(p.getCoefficient(i));
 		}
 	}
-	
+
+	public void delta(Polynomial p) {
+		for(int i = 0; i < p.length(); i++) {
+			p.getCoefficient(i).multiply(new Fraction(-1, 1));
+			this.setCoefficient(p.getCoefficient(i));
+		}
+	}
+
+	public Polynomial[] factorization() {
+		int n = 0;
+		Polynomial p[] = new Polynomial[n];
+
+		return p;
+	}
+
 	//多項式をコピーし返します
 	public Polynomial copy() {
 		Polynomial copied = new Polynomial();
@@ -133,6 +167,23 @@ public class Polynomial {
 		for(int i = 0; i < this.length(); i++) {
 			p.setCoefficient(this.getCoefficient(i));
 		}
+	}
+
+	//多項式が等しい場合trueを返します
+	public boolean equals(Polynomial p) {
+		boolean equal = true;
+		if(this.length() != p.length()) {
+			equal = false;
+			return equal;
+		}
+		p.sort();
+		this.sort();
+		for(int i = 0; i < this.length(); i++) {
+			if(this.getCoefficient(i).equals(p.getCoefficient(i))) {
+				equal = false;
+			}
+		}
+		return equal;
 	}
 
 }

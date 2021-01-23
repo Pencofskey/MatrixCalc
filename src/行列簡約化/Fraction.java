@@ -237,10 +237,12 @@ public class Fraction {
 		return equal;
 	}
 	
+	//この単項式をコピーした単項式を返します
 	public Fraction copy() {
 		Fraction copy = new Fraction();
 		copy.bunshi = this.bunshi;
 		copy.bunbo = this.bunbo;
 		return copy;
 	}
+	
 }

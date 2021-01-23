@@ -3,47 +3,55 @@ package 行列簡約化;
 public class Value {
 
 	//2-x, 2x, x^(-12), x/2, 12/x
-	
+
 	private Polynomial bunshi;	//添字は文字数の次数
 	private Polynomial bunbo;
-	int digreeMax;
-	
+
 	public Value() {
-		digreeMax = 100;
 		bunshi = new Polynomial();
 		bunbo = new Polynomial();
 	}
-	
+	public Value(Polynomial bunshi, Polynomial bunbo) {
+		this.bunshi = bunshi;
+		this.bunbo = bunbo;
+	}
+
 	public Polynomial getBunshi() {
 		return this.bunshi;
 	}
-	
+
 	public Polynomial getBunbo() {
 		return this.bunbo;
 	}
-	
-	public void setBunshi(int digree, int coefficient) {
-		this.bunshi.setCoefficient(digree, coefficient);
+
+	public void setBunshi(Polynomial p) {
+		this.bunshi = p;
+	}
+
+	public void setBunbo(Polynomial p) {
+		this.bunbo = p;
 	}
 	
-	public void setBunbo(int digree, int coefficient) {
-		this.bunbo.setCoefficient(digree, coefficient);
-	}
-		
-	public int[] polynomialMultiply() {
-		
+	public void print() {
+		System.out.println(this.toString());
 	}
 	
-	//掛け算
-	//(1+2x+x^2)(12+3x+2x^2+4x^4)
-	public Value multiply(Value v) {
-		int bunshi[] = new int[digreeMax];
-		int digree = 0;
-		for(int i = 0; i < this.countBunshiDigree(); i++) {
-			for(int j = 0; j < v.countBunshiDigree(); i++) {
-				bunshi[digree] = this.bunshi[j] * v.bunshi[i];
-				digree++;
-			}
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("(");
+		sb.append(this.bunshi.toString());
+		sb.append(")/(");
+		sb.append(this.bunbo.toString());
+		sb.append(")");
+		return sb.toString();
+	}
+
+	public void yakubun() {
+		if(this.bunshi.equals(this.bunbo)) {
+			this.bunshi = new Polynomial(1);
+			this.bunbo = new Polynomial(1);
 		}
 	}
+	
+	
 }

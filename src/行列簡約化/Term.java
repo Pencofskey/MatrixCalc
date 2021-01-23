@@ -46,6 +46,10 @@ public class Term {
 		this.ratio.multiply(t.ratio);
 		this.power.add(t.power);
 	}
+	//定数項を掛けます
+	public void multiply(Fraction f) {
+		this.ratio.multiply(f);
+	}
 	//単項式t1*t2の答えを返します
 	public static Term multiply(Term t1, Term t2) {
 		Term ans = new Term();
@@ -58,6 +62,10 @@ public class Term {
 	public void div(Term t) {
 		this.ratio.div(t.ratio);
 		this.power.delta(t.power);
+	}
+	//定数項で割ります
+	public void div(Fraction f) {
+		this.ratio.div(f);
 	}
 	//単項式t1/t2の値を返します
 	public Term div(Term t1, Term t2) {
