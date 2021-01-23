@@ -5,7 +5,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
 public class Matrix {
-	private String[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
+	private Fraction[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
 	private int row; //行数
 	private int column; //列数
 
@@ -17,7 +17,7 @@ public class Matrix {
 		return this.column;
 	}
 
-	public String[][] getMatrix() {
+	public Fraction[][] getMatrix() {
 		return this.matrix;
 	}
 
@@ -58,15 +58,10 @@ public class Matrix {
 	Matrix(int row, int column, int randomRange) { //デバッグ用自動行列生成
 		this.row = row;
 		this.column = column;
-		this.matrix = new String[row][column];
+		this.matrix = new Fraction[row][column];
 		for (int r = 0; r < this.row; r++) {
 			for (int c = 0; c < this.column; c++) {
-				int bunshi = new java.util.Random().nextInt(randomRange) - randomRange / 2;
-				int bunbo = new java.util.Random().nextInt(randomRange) - randomRange / 2;
-				if (bunbo == 0) {
-					bunbo = 1;
-				}
-				this.matrix[r][c] = "" + Fraction.yakubun(Fraction.buildFraction(bunshi, bunbo));
+				this.matrix[r][c] = new Fraction()
 			}
 		}
 	}
@@ -335,7 +330,9 @@ public class Matrix {
 						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
 
 					}
-					System.out.println("\n主成分より下の行の成分を0にする");
+					if(r != this.row - 1){						
+						System.out.println("\n主成分より下の行の成分を0にする");
+					}
 					for (int i = 1; r + i < this.row; i++) { //最後の行でない場合のみ実行
 						if (!this.matrix[r + i][c].equals("0")) {
 
@@ -345,8 +342,10 @@ public class Matrix {
 							rowBasicTransformation2_d(r, this.matrix[r + i][c], r + i);
 						}
 					}
-					System.out.println();
-					this.print();
+					if(r != this.row - 1){						
+						System.out.println();
+						this.print();
+					}
 					c = this.column; //次の行に進む
 				}
 			}
