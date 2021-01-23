@@ -179,7 +179,7 @@ public class Polynomial {
 		p.sort();
 		this.sort();
 		for(int i = 0; i < this.length(); i++) {
-			if(this.getCoefficient(i).equals(p.getCoefficient(i))) {
+			if(!this.getCoefficient(i).equals(p.getCoefficient(i))) {
 				equal = false;
 			}
 		}

@@ -41,19 +41,30 @@ public class test2 {
 		p1.setCoefficient(t2);
 		p2.setCoefficient(t3);
 		p2.setCoefficient(t4);		//隣り合ってる時はOK、離れてて片方が一番最後にある時NG
-		System.out.println("p1多項式の次数 : " + p1.length());
-		p1.print();
-		p2.print();
-		p1.multiply(p2);
-		p1.print();
-		p1.add(p2);
-		p1.print();
-		p1.div(t1);
-		p1.print();
+//		System.out.println("p1多項式の次数 : " + p1.length());
+//		p1.print();
+//		p2.print();
+//		p1.multiply(p2);
+//		p1.print();
+//		p1.add(p2);
+//		p1.print();
+//		p1.div(t1);
+//		p1.print();
 		
 		
 		Value v = new Value(p1, p2);
+		Value v2 = v.copy();
 		v.print();
+		v2.print();
+//		v2.getBunshi().add(p3);
+		v2.setBunbo(p3);
+		v.print();
+		v2.print();
+		v.tsubun(v2);
+		v.print();
+		v2.print();
+		
+		System.out.println(p2.equals(p2));
 		
 		
 	}

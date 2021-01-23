@@ -31,11 +31,11 @@ public class Value {
 	public void setBunbo(Polynomial p) {
 		this.bunbo = p;
 	}
-	
+
 	public void print() {
 		System.out.println(this.toString());
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("(");
@@ -52,6 +52,20 @@ public class Value {
 			this.bunbo = new Polynomial(1);
 		}
 	}
-	
-	
+
+	public void tsubun(Value v) {
+		if(this.bunbo.equals(v.bunbo)) {
+			;
+		}else {			
+			this.bunshi.multiply(v.bunbo);
+			this.bunbo.multiply(v.bunbo);
+		}
+	}
+
+	public Value copy() {
+		Value copy = new Value();
+		copy.bunshi = this.bunshi.copy();
+		copy.bunbo = this.bunbo.copy();
+		return copy;
+	}
 }
