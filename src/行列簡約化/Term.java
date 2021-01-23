@@ -2,11 +2,11 @@ package 行列簡約化;
 
 public class Term {
 
-	private Fraction ratio;
+	private Fraction coefficient;
 	private Fraction power;
 
-	public Term(Fraction ratio, Fraction power) {
-		this.ratio = ratio;
+	public Term(Fraction coefficient, Fraction power) {
+		this.coefficient = coefficient;
 		this.power = power;
 	}
 	public Term() {
@@ -16,12 +16,12 @@ public class Term {
 		this(new Fraction(bunshi, bunbo), new Fraction(pbunshi, pbunbo));
 	}
 
-	public void setRatio(Fraction f) {
-		this.ratio = f;
+	public void setCoefficient(Fraction f) {
+		this.coefficient = f;
 	}
 
-	public Fraction getRatio() {
-		return this.ratio;
+	public Fraction getCoefficient() {
+		return this.coefficient;
 	}
 
 	public void setPower(Fraction f) {
@@ -37,40 +37,47 @@ public class Term {
 	}
 
 	public String toString() {
-		String s = this.ratio + "x^(" + this.power + ")";
+		String s;
+		if(this.power.getBunshi() == 0) {
+			s = this.coefficient.toString();
+		}else if(this.power.getBunshi() == 1 && this.power.getBunbo() == 1){
+			s = this.coefficient.toString() + "x";
+		}else {
+			s = this.coefficient + "x^(" + this.power + ")";
+		}
 		return s;
 	}
-	
+
 	//xの単項式を掛けます
 	public void multiply(Term t) {
-		this.ratio.multiply(t.ratio);
+		this.coefficient.multiply(t.coefficient);
 		this.power.add(t.power);
 	}
 	//定数項を掛けます
 	public void multiply(Fraction f) {
-		this.ratio.multiply(f);
+		this.coefficient.multiply(f);
 	}
 	//単項式t1*t2の答えを返します
 	public static Term multiply(Term t1, Term t2) {
 		Term ans = new Term();
-		ans.ratio = Fraction.multiply(t1.ratio, t2.ratio);
+		ans.coefficient = Fraction.multiply(t1.coefficient, t2.coefficient);
 		ans.power = Fraction.add(t1.power, t2.power);
 		return ans;
 	}
-	
+
 	//この単項式を引数の単項式で割ります
 	public void div(Term t) {
-		this.ratio.div(t.ratio);
+		this.coefficient.div(t.coefficient);
 		this.power.delta(t.power);
 	}
 	//定数項で割ります
 	public void div(Fraction f) {
-		this.ratio.div(f);
+		this.coefficient.div(f);
 	}
 	//単項式t1/t2の値を返します
 	public Term div(Term t1, Term t2) {
 		Term ans = new Term();
-		ans.ratio = Fraction.div(t1.ratio, t2.ratio);
+		ans.coefficient = Fraction.div(t1.coefficient, t2.coefficient);
 		ans.power = Fraction.delta(t1.power, t2.power);
 		return ans;
 	}

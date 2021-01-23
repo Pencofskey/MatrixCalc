@@ -18,14 +18,14 @@ public class Polynomial {
 		this.setCoefficient(new Term(new Fraction(1, 1), new Fraction()));
 	}
 
-	public Term getCoefficient(int digree) {
+	public Term getTerm(int digree) {
 		return this.x[digree];
 	}
 
 	//引数の単項式が多項式内に存在する場合はその項に加え、存在しない場合は配列の最後にくっつける、その後字数の高い順に並べ替える
 	public void setCoefficient(Term coefficient) {
 		if(exist(coefficient)) {
-			this.x[findSamePower(coefficient)].getRatio().add(coefficient.getRatio());
+			this.x[findSamePower(coefficient)].getCoefficient().add(coefficient.getCoefficient());
 		}else {
 			this.x[findSamePower(coefficient)] = coefficient;
 		}
@@ -45,7 +45,7 @@ public class Polynomial {
 		Term temp;
 		for(int i = 0; i < this.length(); i++) {
 			for(int j = 0; j < this.length() - 1 - i; j++) {
-				if(getCoefficient(i + 1).getPower().compare(getCoefficient(i).getPower())) {
+				if(getTerm(i + 1).getPower().compare(getTerm(i).getPower())) {
 					temp = x[i + 1];
 					x[i + 1] = x[i];
 					x[i] = temp;
@@ -59,7 +59,7 @@ public class Polynomial {
 		boolean exist = false;
 		for(int i = 0; i < this.length(); i++) {
 			//引数の項の次数とこの多項式のi番目の次数の分母と分子が一致した場合
-			if(t.getPower().equals(this.getCoefficient(i).getPower())) {
+			if(t.getPower().equals(this.getTerm(i).getPower())) {
 				exist = true;
 			}
 		}
@@ -72,7 +72,7 @@ public class Polynomial {
 		int num = this.length();
 		for(int i = 0; i < this.length(); i++) {
 			//引数の項の次数とこの多項式のi番目の次数の分母と分子が一致した場合
-			if(t.getPower().equals(this.getCoefficient(i).getPower()) ) {
+			if(t.getPower().equals(this.getTerm(i).getPower()) ) {
 				num = i;
 			}
 		}
@@ -83,7 +83,7 @@ public class Polynomial {
 	public int length() {
 		int digree = 0;
 		for(int i = 0; i < this.digreeMax; i++) {
-			if(getCoefficient(i).getRatio().getBunshi() == 0) {
+			if(getTerm(i).getCoefficient().getBunshi() == 0) {
 				digree = i;
 				break;
 			}
@@ -95,7 +95,7 @@ public class Polynomial {
 	public void print() {
 		System.out.println(this.toString());
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("");
 		this.sort();
@@ -111,7 +111,7 @@ public class Polynomial {
 	//単項式をかけます
 	public void multiply(Term t) {
 		for(int i = 0; i < this.length(); i++) {
-			getCoefficient(i).multiply(t);
+			getTerm(i).multiply(t);
 		}
 	}
 	public void multiply(Polynomial p) {	//途中
@@ -121,7 +121,7 @@ public class Polynomial {
 		this.reset();
 		for(int i = 0; i < temp1.length(); i++) {
 			for(int j = 0; j < temp2.length(); j++) {
-				this.setCoefficient(Term.multiply(temp1.getCoefficient(i), temp2.getCoefficient(j)));
+				this.setCoefficient(Term.multiply(temp1.getTerm(i), temp2.getTerm(j)));
 			}
 		}
 	}
@@ -129,20 +129,20 @@ public class Polynomial {
 	//単項式で割ります
 	public void div(Term t) {
 		for(int i = 0; i < this.length(); i++) {
-			getCoefficient(i).div(t);
+			getTerm(i).div(t);
 		}
 	}
 
 	public void add(Polynomial p) {
 		for(int i = 0; i < p.length(); i++) {
-			this.setCoefficient(p.getCoefficient(i));
+			this.setCoefficient(p.getTerm(i));
 		}
 	}
 
 	public void delta(Polynomial p) {
 		for(int i = 0; i < p.length(); i++) {
-			p.getCoefficient(i).multiply(new Fraction(-1, 1));
-			this.setCoefficient(p.getCoefficient(i));
+			p.getTerm(i).multiply(new Fraction(-1, 1));
+			this.setCoefficient(p.getTerm(i));
 		}
 	}
 
@@ -157,7 +157,7 @@ public class Polynomial {
 	public Polynomial copy() {
 		Polynomial copied = new Polynomial();
 		for(int i = 0; i < this.length(); i++) {
-			copied.setCoefficient(this.getCoefficient(i));
+			copied.setCoefficient(this.getTerm(i));
 		}
 		return copied;
 	}
@@ -165,7 +165,7 @@ public class Polynomial {
 	public void copy(Polynomial p) {
 		p.reset();
 		for(int i = 0; i < this.length(); i++) {
-			p.setCoefficient(this.getCoefficient(i));
+			p.setCoefficient(this.getTerm(i));
 		}
 	}
 
@@ -179,11 +179,27 @@ public class Polynomial {
 		p.sort();
 		this.sort();
 		for(int i = 0; i < this.length(); i++) {
-			if(!this.getCoefficient(i).equals(p.getCoefficient(i))) {
+			if(!this.getTerm(i).equals(p.getTerm(i))) {
 				equal = false;
 			}
 		}
 		return equal;
+	}
+
+	//多項式全体の最大の共通因数を返します
+	public static Fraction saidaikouyakusu(Polynomial p) {
+		int bunshiSaidaikouyakusu = p.getTerm(0).getCoefficient().getBunshi();
+		for(int i = 0; i < p.length(); i++) {
+			bunshiSaidaikouyakusu = Fraction.saidaikouyakusu(bunshiSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunshi());
+		}
+		
+		int bunboSaidaikouyakusu = p.getTerm(0).getCoefficient().getBunbo();
+		for(int i = 0; i < p.length(); i++) {
+			bunboSaidaikouyakusu = Fraction.saidaikouyakusu(bunboSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunbo());
+		}
+		System.out.println(bunshiSaidaikouyakusu);
+		System.out.println(bunboSaidaikouyakusu);
+		return new Fraction(bunshiSaidaikouyakusu, bunboSaidaikouyakusu);
 	}
 
 }

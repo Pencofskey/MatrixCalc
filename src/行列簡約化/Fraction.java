@@ -2,11 +2,11 @@ package 行列簡約化;
 
 public class Fraction {
 
-	long bunshi;
-	long bunbo;
-	long defaultBunbo = 45378209;
+	int bunshi;
+	int bunbo;
+	int defaultBunbo = 45378209;
 
-	public Fraction(long bunshi, long bunbo) {
+	public Fraction(int bunshi, int bunbo) {
 		this.bunshi = bunshi;
 		this.bunbo = bunbo;	//0の場合例外処理を追加
 		if(this.bunbo == 0) {
@@ -20,11 +20,11 @@ public class Fraction {
 		defaultBunbo = 45378209;
 	}
 
-	public long getBunbo() {
+	public int getBunbo() {
 		return this.bunbo;
 	}
 
-	public long getBunshi() {
+	public int getBunshi() {
 		return this.bunshi;
 	}
 
@@ -65,25 +65,27 @@ public class Fraction {
 			this.bunbo *= -1;
 			this.bunshi *= -1;
 		}
+		int s = saidaikouyakusu(this.bunshi, this.bunbo);
+		this.bunshi /= s;
+		this.bunbo /= s;
+	}
 
-		if (this.bunshi == 0 || this.bunshi == 1) {
+	//ユークリッド互除法を用いて最大公約数を求めそれをint型で返します
+	public static int saidaikouyakusu(int i1, int i2) {
+		int s = 1;
+		if(i1 == 0 || i2 == 0) {
 			;
 		}else {
-			//最大公約数 ユークリッド互除法
-			long saidaikouyakusuu = 1;
-			long d = Math.max(this.bunshi, this.bunbo);
-			long s = Math.min(this.bunshi, this.bunbo);
-			long r = d % s;
-			for (int i = 1; r != 0;) {
+			int d = Math.max(i1, i2);
+			s = Math.min(i1, i2);
+			int r = d % s;
+			for (; r != 0;) {
 				d = s;
 				s = r;
 				r = d % r;
 			}
-			saidaikouyakusuu = s;
-
-			this.bunshi /= s;
-			this.bunbo /= s;
 		}
+		return s;
 	}
 
 	//thisをfに通分します どちらかに0が代入された場合はそのまま
@@ -92,19 +94,10 @@ public class Fraction {
 
 		if(this.bunshi == 0) {
 			this.bunbo = f.bunbo;
-		}else if( f.getBunshi() == 0) {
+		}else if( f.bunshi == 0) {
 			f.bunbo = this.bunbo;
 		}else {
-			long saishoukoubaisu = 1; //最小公倍数の初期化 最小公倍数=a*b/最大公約数
-			long d = Math.max(this.bunbo, f.getBunbo());
-			long s = Math.min(this.bunbo, f.getBunbo());
-			long r = d % s;
-			for (; r != 0;) {
-				d = s;
-				s = r;
-				r = d % r;
-			}
-			saishoukoubaisu = this.bunbo * f.getBunbo() / s;
+			int saishoukoubaisu = this.bunbo * f.getBunbo() / saidaikouyakusu(this.bunbo, f.bunbo);
 
 			this.bunshi = this.bunshi * saishoukoubaisu / this.bunbo;
 			this.bunbo = this.bunbo * saishoukoubaisu / this.bunbo;
@@ -164,7 +157,7 @@ public class Fraction {
 		if(this.bunshi == 0) {
 			throw new IllegalArgumentException("div by zero");
 		}
-		long temp = this.bunshi;
+		int temp = this.bunshi;
 		this.bunshi = this.bunbo;
 		this.bunbo = temp;
 		this.correctFraction();
@@ -227,7 +220,7 @@ public class Fraction {
 		}
 		return bigger;
 	}
-	
+
 	//引数の分数と等しければtrueを返します
 	public boolean equals(Fraction f) {
 		boolean equal = false;
@@ -236,7 +229,7 @@ public class Fraction {
 		}
 		return equal;
 	}
-	
+
 	//この単項式をコピーした単項式を返します
 	public Fraction copy() {
 		Fraction copy = new Fraction();
@@ -244,5 +237,5 @@ public class Fraction {
 		copy.bunbo = this.bunbo;
 		return copy;
 	}
-	
+
 }
