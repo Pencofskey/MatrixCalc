@@ -65,6 +65,14 @@ public class Value {
 			this.bunshi = new Polynomial(1);
 			this.bunbo = new Polynomial(1);
 		}
+		if(!this.bunshi.nonFraction()) {
+			this.bunshi.div(Polynomial.saidaikouyakusu(this.bunshi));
+			this.bunbo.div(Polynomial.saidaikouyakusu(this.bunshi));
+		}
+		if(!this.bunbo.nonFraction()) {
+			this.bunshi.div(Polynomial.saidaikouyakusu(this.bunbo));
+			this.bunbo.div(Polynomial.saidaikouyakusu(this.bunbo));
+		}
 	}
 
 	public void tsubun(Value v) {
@@ -83,7 +91,7 @@ public class Value {
 		this.bunshi.add(temp.bunshi);
 		temp.yakubun();
 	}
-	
+
 	public void delta(Value v) {
 		Value temp = v.copy();
 		temp.tsubun(this);
@@ -91,21 +99,10 @@ public class Value {
 		this.bunshi.delta(temp.bunshi);
 		temp.yakubun();
 	}
-	
+
 	//単項式で割ります
 	public void div(Term t) {
 		this.bunshi.div(t);
-		Fraction power = new Fraction();
-		//分子の多項式内で最小の次数の項を探す
-		for(int i = 0; i < this.bunshi.length(); i++) {
-			if(power.compare(this.bunshi.getTerm(i).getPower())) {
-				power = this.bunshi.getTerm(i).getPower();
-			}
-		}
-		//最小の次数が0未満の場合、分母分子に最小次数項の逆数をかける
-		if(power.compare(new Fraction())) {
-			this.bunshi.div(new Term(new Fraction(1, 1), power));
-		}
 	}
 
 	public Value copy() {

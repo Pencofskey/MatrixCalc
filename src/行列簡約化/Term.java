@@ -82,4 +82,10 @@ public class Term {
 		return ans;
 	}
 
+	public Term copy() {
+		Term t = new Term();
+		t.setCoefficient(this.getCoefficient().copy());
+		t.setPower(this.getPower().copy());
+		return t;
+	}
 }

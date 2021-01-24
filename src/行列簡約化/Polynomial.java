@@ -114,7 +114,7 @@ public class Polynomial {
 			getTerm(i).multiply(t);
 		}
 	}
-	public void multiply(Polynomial p) {	//途中
+	public void multiply(Polynomial p) {
 		Polynomial temp1, temp2;
 		temp1 = this.copy();
 		temp2 = p.copy();
@@ -125,11 +125,22 @@ public class Polynomial {
 			}
 		}
 	}
+	//定数項を掛けます
+	public void multiply(Fraction f) {
+		for(int i = 0; i < this.length(); i++) {
+			getTerm(i).multiply(f);
+		}
+	}
 
 	//単項式で割ります
 	public void div(Term t) {
 		for(int i = 0; i < this.length(); i++) {
 			getTerm(i).div(t);
+		}
+	}
+	public void div(Fraction f) {
+		for(int i = 0; i < this.length(); i++) {
+			getTerm(i).div(f);
 		}
 	}
 
@@ -157,7 +168,7 @@ public class Polynomial {
 	public Polynomial copy() {
 		Polynomial copied = new Polynomial();
 		for(int i = 0; i < this.length(); i++) {
-			copied.setCoefficient(this.getTerm(i));
+			copied.setCoefficient(this.getTerm(i).copy());
 		}
 		return copied;
 	}
@@ -165,7 +176,7 @@ public class Polynomial {
 	public void copy(Polynomial p) {
 		p.reset();
 		for(int i = 0; i < this.length(); i++) {
-			p.setCoefficient(this.getTerm(i));
+			p.setCoefficient(this.getTerm(i).copy());
 		}
 	}
 
@@ -192,7 +203,7 @@ public class Polynomial {
 		for(int i = 0; i < p.length(); i++) {
 			bunshiSaidaikouyakusu = Fraction.saidaikouyakusu(bunshiSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunshi());
 		}
-		
+
 		int bunboSaidaikouyakusu = p.getTerm(0).getCoefficient().getBunbo();
 		for(int i = 0; i < p.length(); i++) {
 			bunboSaidaikouyakusu = Fraction.saidaikouyakusu(bunboSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunbo());
@@ -200,6 +211,17 @@ public class Polynomial {
 		System.out.println(bunshiSaidaikouyakusu);
 		System.out.println(bunboSaidaikouyakusu);
 		return new Fraction(bunshiSaidaikouyakusu, bunboSaidaikouyakusu);
+	}
+	
+	//多項式内に分数が含まれていない場合trueを返す
+	public boolean nonFraction() {
+		boolean b = true;
+		Fraction f = new Fraction(1, 1);
+		for(int i = 0; i < this.length(); i++) {
+			if(f.compare(this.getTerm(i).getCoefficient()));
+			b = false;
+		}
+		return b;
 	}
 
 }

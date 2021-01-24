@@ -27,7 +27,7 @@ public class test2 {
 		t3 = new Term(-4, 1, 1, 1);
 		t4 = new Term(6, 3, 0, 1);
 		
-		Term t5 = new Term(8, 1, 2, 1);
+		Term t5 = new Term(5, 1, 1, 1);
 //		t5.print();
 //		t1.print();
 //		t2.print();
@@ -36,9 +36,6 @@ public class test2 {
 		Polynomial p1 = new Polynomial();
 		Polynomial p2 = new Polynomial();
 		Polynomial p3 = new Polynomial();
-		p3.setCoefficient(t1);
-		p3.setCoefficient(t3);
-		p3.setCoefficient(t4);
 		p3.setCoefficient(t5);
 		p1.setCoefficient(t1);
 		p1.setCoefficient(t2);
@@ -54,8 +51,6 @@ public class test2 {
 //		p1.div(t1);
 //		p2.print();
 		
-		p3.print();
-		System.out.println("最大公約数を" + Polynomial.saidaikouyakusu(p3));
 		
 		Value v = new Value(p1, p2);
 		Value v2 = v.copy();
@@ -63,7 +58,14 @@ public class test2 {
 		
 		v.print();
 		v2.print();
-		v.delta(v2);
+//		v.delta(v2);
+		v.div(t5);
+		
+		v.print();
+		v2.print();
+		
+		v.yakubun();
+		
 		v.print();
 		v2.print();
 		
