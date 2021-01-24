@@ -8,7 +8,7 @@ public class test2 {
 		Fraction f1 = new Fraction(-1, 5);
 		Fraction f2 = new Fraction(-1, 5);
 		Fraction f3 = Fraction.div(f, f1);
-		System.out.println(Fraction.saidaikouyakusu(12, 4));
+//		System.out.println(Fraction.saidaikouyakusu(12, 4));
 //		f3.print();
 //		f.Print();
 //		f1.Print();
@@ -18,7 +18,7 @@ public class test2 {
 //		f.add(f1);
 
 
-		f.print();
+//		f.print();
 
 		Term t = new Term(f, f1);
 		Term t1, t2, t3, t4;
@@ -50,6 +50,11 @@ public class test2 {
 //		p1.print();
 //		p1.div(t1);
 //		p2.print();
+
+		Polynomial p4 = p1.copy();
+//		p1.print();
+//		p4.print();
+//		System.out.println(p1.equals(p4));
 		
 		
 		Value v = new Value(p1, p2);
@@ -59,15 +64,15 @@ public class test2 {
 		v.print();
 		v2.print();
 //		v.delta(v2);
-		v.div(t5);
+		v.div(v2);
 		
 		v.print();
 		v2.print();
 		
-		v.yakubun();
+//		v.yakubun();
 		
-		v.print();
-		v2.print();
+//		v.print();
+//		v2.print();
 		
 		
 		

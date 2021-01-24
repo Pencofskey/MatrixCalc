@@ -88,4 +88,15 @@ public class Term {
 		t.setPower(this.getPower().copy());
 		return t;
 	}
+	
+	public boolean equals(Term t) {
+		boolean equal = true;
+		if(!this.coefficient.equals(t.coefficient)) {
+			equal = false;
+		}
+		if(!this.power.equals(t.power)) {
+			equal = false;
+		}
+		return equal;
+	}
 }

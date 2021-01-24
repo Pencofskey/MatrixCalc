@@ -208,11 +208,9 @@ public class Polynomial {
 		for(int i = 0; i < p.length(); i++) {
 			bunboSaidaikouyakusu = Fraction.saidaikouyakusu(bunboSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunbo());
 		}
-		System.out.println(bunshiSaidaikouyakusu);
-		System.out.println(bunboSaidaikouyakusu);
 		return new Fraction(bunshiSaidaikouyakusu, bunboSaidaikouyakusu);
 	}
-	
+
 	//多項式内に分数が含まれていない場合trueを返す
 	public boolean nonFraction() {
 		boolean b = true;
