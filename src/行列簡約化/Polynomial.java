@@ -15,7 +15,7 @@ public class Polynomial {
 	//整数nの定数項のみの多項式
 	public Polynomial(int n) {
 		this();
-		this.setCoefficient(new Term(new Fraction(1, 1), new Fraction()));
+		this.setTerm(new Term(new Fraction(1, 1), new Fraction()));
 	}
 
 	public Term getTerm(int digree) {
@@ -23,20 +23,20 @@ public class Polynomial {
 	}
 
 	//引数の単項式が多項式内に存在する場合はその項に加え、存在しない場合は配列の最後にくっつける、その後字数の高い順に並べ替える
-	public void setCoefficient(Term coefficient) {
+	public void setTerm(Term coefficient) {
 		if(exist(coefficient)) {
 			this.x[findSamePower(coefficient)].getCoefficient().add(coefficient.getCoefficient());
 		}else {
 			this.x[findSamePower(coefficient)] = coefficient;
 		}
 	}
-	public void setCoefficient(int i, Term coefficient) {
+	public void setTerm(int i, Term coefficient) {
 		this.x[i] = coefficient;
 	}
 
 	public void reset() {
 		for(int i = 0; i < this.digreeMax; i++) {
-			setCoefficient(i, new Term());
+			setTerm(i, new Term());
 		}
 	}
 
@@ -121,7 +121,7 @@ public class Polynomial {
 		this.reset();
 		for(int i = 0; i < temp1.length(); i++) {
 			for(int j = 0; j < temp2.length(); j++) {
-				this.setCoefficient(Term.multiply(temp1.getTerm(i), temp2.getTerm(j)));
+				this.setTerm(Term.multiply(temp1.getTerm(i), temp2.getTerm(j)));
 			}
 		}
 	}
@@ -146,14 +146,14 @@ public class Polynomial {
 
 	public void add(Polynomial p) {
 		for(int i = 0; i < p.length(); i++) {
-			this.setCoefficient(p.getTerm(i));
+			this.setTerm(p.getTerm(i));
 		}
 	}
 
 	public void delta(Polynomial p) {
 		for(int i = 0; i < p.length(); i++) {
 			p.getTerm(i).multiply(new Fraction(-1, 1));
-			this.setCoefficient(p.getTerm(i));
+			this.setTerm(p.getTerm(i));
 		}
 	}
 
@@ -168,7 +168,7 @@ public class Polynomial {
 	public Polynomial copy() {
 		Polynomial copied = new Polynomial();
 		for(int i = 0; i < this.length(); i++) {
-			copied.setCoefficient(this.getTerm(i).copy());
+			copied.setTerm(this.getTerm(i).copy());
 		}
 		return copied;
 	}
@@ -176,7 +176,7 @@ public class Polynomial {
 	public void copy(Polynomial p) {
 		p.reset();
 		for(int i = 0; i < this.length(); i++) {
-			p.setCoefficient(this.getTerm(i).copy());
+			p.setTerm(this.getTerm(i).copy());
 		}
 	}
 
@@ -208,6 +208,7 @@ public class Polynomial {
 		for(int i = 0; i < p.length(); i++) {
 			bunboSaidaikouyakusu = Fraction.saidaikouyakusu(bunboSaidaikouyakusu, p.getTerm(i).getCoefficient().getBunbo());
 		}
+//		System.out.println(bunshiSaidaikouyakusu + ", " + bunboSaidaikouyakusu);
 		return new Fraction(bunshiSaidaikouyakusu, bunboSaidaikouyakusu);
 	}
 

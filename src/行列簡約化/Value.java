@@ -66,16 +66,37 @@ public class Value {
 			this.bunshi = new Polynomial(1);
 			this.bunbo = new Polynomial(1);
 		}
-		//分子に共通因数がある場合は分母分子に同じ値をかけて消去
+		
+		
+		Fraction saidaikouyakusu;
+		//分子に共通の分数が含まれる場合、分母分子に共通の分数の分母の値をかけ、多項式内の分数を消去
 		if(!this.bunbo.nonFraction()) {
-			this.bunshi.div(Polynomial.saidaikouyakusu(this.bunbo));
-			this.bunbo.div(Polynomial.saidaikouyakusu(this.bunbo));
+			saidaikouyakusu = Polynomial.saidaikouyakusu(this.bunbo);
+			this.bunshi.multiply(new Fraction(saidaikouyakusu.bunbo, 1));
+			this.bunbo.multiply(new Fraction(saidaikouyakusu.bunbo, 1));
 		}
-		//分母に共通因数がある場合は分母分子に同じ値をかけて消去
+		//分母に共通の分数が含まれる場合、分母分子に共通の分数の分母の値をかけ、多項式内の分数を消去
 		if(!this.bunshi.nonFraction()) {
-			this.bunshi.div(Polynomial.saidaikouyakusu(this.bunshi));
-			this.bunbo.div(Polynomial.saidaikouyakusu(this.bunshi));
+			saidaikouyakusu = Polynomial.saidaikouyakusu(this.bunshi);
+			this.bunshi.multiply(new Fraction(saidaikouyakusu.bunbo, 1));
+			this.bunbo.multiply(new Fraction(saidaikouyakusu.bunbo, 1));
 		}
+		
+		
+		//分子内の最大公約数
+		Fraction bunshiS = Polynomial.saidaikouyakusu(this.bunshi);
+		//分母ないの最大公約数
+		Fraction bunboS = Polynomial.saidaikouyakusu(this.bunbo);
+		//上記2つの分数の分子同士の最大公約数
+		int s1 = Fraction.saidaikouyakusu(bunshiS.getBunshi(), bunboS.getBunshi());
+		//上記二つの分数の分母同士の最大公約数
+		int s2 = Fraction.saidaikouyakusu(bunshiS.getBunbo(), bunboS.getBunbo());
+		//分母分子をs1で割る
+		this.bunshi.div(new Fraction(s1, 1));
+		this.bunbo.div(new Fraction(s1, 1));
+		//分母分子にsを掛ける
+		this.bunshi.multiply(new Fraction(s2, 1));
+		this.bunshi.multiply(new Fraction(s2, 1));
 	}
 
 	public void tsubun(Value v) {
@@ -102,19 +123,56 @@ public class Value {
 		this.bunshi.delta(temp.bunshi);
 		this.yakubun();
 	}
-	
+
 	public void multiply(Value v) {
-		if(this.bunshi.equals(v.bunbo)) {
-			this.bunshi = v.bunshi.copy();
-		}else if(this.bunbo.equals(v.bunshi)) {
-			this.bunbo = v.bunbo.copy();
-		}else {			
+		Polynomial temp1 = new Polynomial();
+		Polynomial temp2 = new Polynomial();
+		
+		Polynomial thisBunshi = this.bunshi.copy();
+		Polynomial thisBunbo = this.bunbo.copy();
+		Polynomial vBunshi = v.bunshi.copy();
+		Polynomial vBunbo = v.bunbo.copy();
+		
+		//自分の分子内の最大公約数
+		Fraction thisBunshiS = Polynomial.saidaikouyakusu(this.bunshi);
+		//自分の分母の最大公約数
+		Fraction thisBunboS = Polynomial.saidaikouyakusu(this.bunbo);
+		//掛ける相手の分子内の最大公約数
+		Fraction vBunshiS = Polynomial.saidaikouyakusu(v.bunshi);
+		//掛ける相手の分母の最大公約数
+		Fraction vBunboS = Polynomial.saidaikouyakusu(v.bunbo);
+		
+		thisBunshi.div(thisBunshiS);
+		thisBunbo.div(thisBunboS);
+		vBunshi.div(vBunshiS);
+		vBunbo.div(vBunboS);
+		if(thisBunshi.equals(vBunbo) || thisBunbo.equals(vBunshi)) {
+			if(thisBunshi.equals(vBunbo)) {
+				temp1 = v.bunshi.copy();
+				temp1.multiply(thisBunshiS);
+				temp2 = this.bunbo.copy();
+				temp2.multiply(vBunboS);
+				this.bunshi = temp1;
+				this.bunbo = temp2;
+			}
+			if(thisBunbo.equals(vBunshi)) {
+				temp1 = this.bunshi.copy();
+				temp1.multiply(vBunshiS);
+				temp2 = v.bunbo.copy();
+				temp2.multiply(thisBunboS);
+				this.bunshi = temp1;
+				this.bunbo = temp2;
+			}
+		}else {
 			this.bunshi.multiply(v.bunshi);
 			this.bunbo.multiply(v.bunbo);
-		}
-//		this.yakubun();
+		}		
+		this.yakubun();
 	}
-	
+	public void multiply(Term t) {
+		this.bunshi.multiply(t);
+	}
+
 	public void gyakusu() {
 		Polynomial temp = new Polynomial();
 		temp = this.bunshi.copy();
@@ -127,7 +185,6 @@ public class Value {
 		Value temp = v.copy();
 		temp.gyakusu();
 		this.multiply(temp);
-//		this.yakubun();
 	}
 	//単項式で割ります
 	public void div(Term t) {

@@ -25,7 +25,7 @@ public class test2 {
 		t1 = new Term(-2, 1, 1, 1);
 		t2 = new Term(3, 1, 0, 1);
 		t3 = new Term(-4, 1, 1, 1);
-		t4 = new Term(6, 3, 0, 1);
+		t4 = new Term(2, 1, 0, 1);
 		
 		Term t5 = new Term(5, 1, 1, 1);
 //		t5.print();
@@ -36,11 +36,11 @@ public class test2 {
 		Polynomial p1 = new Polynomial();
 		Polynomial p2 = new Polynomial();
 		Polynomial p3 = new Polynomial();
-		p3.setCoefficient(t5);
-		p1.setCoefficient(t1);
-		p1.setCoefficient(t2);
-		p2.setCoefficient(t3);
-		p2.setCoefficient(t4);		//隣り合ってる時はOK、離れてて片方が一番最後にある時NG
+		p3.setTerm(t5);
+		p1.setTerm(t1);
+		p1.setTerm(t2);
+		p2.setTerm(t3);
+		p2.setTerm(t4);		//隣り合ってる時はOK、離れてて片方が一番最後にある時NG
 //		System.out.println("p1多項式の次数 : " + p1.length());
 //		p1.print();
 //		p2.print();
@@ -51,7 +51,7 @@ public class test2 {
 //		p1.div(t1);
 //		p2.print();
 
-		Polynomial p4 = p1.copy();
+		Term t6 = new Term(2, 1, 0, 1);
 //		p1.print();
 //		p4.print();
 //		System.out.println(p1.equals(p4));
@@ -60,16 +60,18 @@ public class test2 {
 		Value v = new Value(p1, p2);
 		Value v2 = v.copy();
 		v2.setBunbo(p3);
+		v2.multiply(t6);
 		
 		v.print();
 		v2.print();
+		
 //		v.delta(v2);
 		v.div(v2);
+//		v.yakubun();
 		
 		v.print();
 		v2.print();
 		
-//		v.yakubun();
 		
 //		v.print();
 //		v2.print();
