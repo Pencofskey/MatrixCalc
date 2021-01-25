@@ -54,6 +54,9 @@ public class Value {
 			sb.append(this.bunshi.toString());
 			sb.append(")");
 		}
+		if(this.bunbo.equals(new Polynomial(2))) {
+			return sb.toString();
+		}
 		sb.append("/");
 		if(bunbo.length() == 1) {
 			sb.append(this.bunbo.toString());
@@ -228,9 +231,9 @@ public class Value {
 		int last = s.lastIndexOf(")");
 		s = s.substring(start + 1, last);
 		String p[] = s.split("\\)\\/\\(");
-		System.out.println(p[0]);
+//		System.out.println(p[0]);
 		v.bunshi = new Polynomial(p[0]);
-		System.out.println(p[1]);
+//		System.out.println(p[1]);
 		v.bunbo = new Polynomial(p[1]);
 		return v;
 	}
