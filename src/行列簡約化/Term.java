@@ -37,15 +37,13 @@ public class Term {
 	}
 
 	public String toString() {
-		String s;
+		String s = this.coefficient.toString();
 		if(this.power.getBunshi() == 0) {
-			s = this.coefficient.toString();
+			s += "";
 		}else if(this.power.getBunshi() == 1 && this.power.getBunbo() == 1){
-			s = this.coefficient.toString() + "x";
-		}else if(this.coefficient.getBunbo() == 1){
-			s = this.coefficient + "";
+			s += "x";
 		}else {
-			s = this.coefficient + "x^(" + this.power + ")";
+			s += "x^(" + this.power.toString() + ")";
 		}
 		return s;
 	}
@@ -104,25 +102,36 @@ public class Term {
 
 	// 例   4x^(2), -2/3x^(-2/5), 5x, 23
 	public static Term convert(String s) {
-		int x = s.indexOf('x');
-		int kakko = s.indexOf('(');
+		s = s.replaceAll(" ", "");
+		s = s.replaceAll("\\(", "");
+		s = s.replaceAll("\\)", "");
+		s = s.replaceAll("\\^", "");
 		String coefficient;
 		String power;
-		if(x < 0) {
+		String term[] = s.split("x", 2);
+		if(term.length == 1) {
 			coefficient = s;
 			power = "0";
-		}else if(kakko < 0){
-			coefficient = s.substring(0, x);
-			power = "1";
-		}else {
-			coefficient = s.substring(0, x);
-			power = s.substring(kakko+1, s.length()-1);
-		}
-		if(coefficient.equals("")) {
+			return new Term(Fraction.convert(coefficient), Fraction.convert(power));
+		}else if(term.length == 0) {
+			s = s.replaceAll("x", "");
 			coefficient = "1";
-		}
-		if(power.equals("")) {
 			power = "1";
+			return new Term(Fraction.convert(coefficient), Fraction.convert(power));
+		}
+		// x^(3)
+		if(term[0].equals("")) {
+			coefficient = "1";
+		// -2/3x^(-2/5)
+		}else {
+			coefficient = term[0];
+		}
+		// 12x
+		if(term[1].equals("")) {
+			power = "1";
+		// -2/3x^(-2/5)
+		}else {
+			power = term[1];
 		}
 //		System.out.println(coefficient + ", " + power);
 		return new Term(Fraction.convert(coefficient), Fraction.convert(power));

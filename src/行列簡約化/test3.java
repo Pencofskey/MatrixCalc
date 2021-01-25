@@ -35,11 +35,11 @@ public class test3 {
 		v2.setBunbo(p3);
 		v2.multiply(t6);
 
-		Fraction f = Fraction.convert("1");
+		Fraction f = Fraction.convert("5");
 		f.print();
 
-		Term t = Term.convert("-4/3x^(5)");
-//		t.print();
+		Term t = Term.convert("-x");
+		t.print();
 
 
 //		String s = "-4/3x^(5) + 5x + 3 + 2x^(-1)";
@@ -49,11 +49,11 @@ public class test3 {
 		Polynomial p = Polynomial.convert(s);
 		p.print();
 
-		Polynomial p4 = new Polynomial("1/2");
+		Polynomial p4 = new Polynomial("-4/3x^(5)-1");
 		p4.print();
 		
-		Value v3 = new Value();
-		v3.print();
+//		Value v3 = Value.convert("(-23x + x^(3) - 2)/(-2/2x + x^(-1/2))");
+//		v3.print();
 		
 		Matrix m = new Matrix();
 		m.print();

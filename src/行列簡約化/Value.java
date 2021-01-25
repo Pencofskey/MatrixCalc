@@ -220,4 +220,18 @@ public class Value {
 		copy.bunbo = this.bunbo.copy();
 		return copy;
 	}
+	
+	public static Value convert(String s) {
+		Value v = new Value();
+		s = s.replaceAll(" ", "");
+		int start = s.indexOf("(");
+		int last = s.lastIndexOf(")");
+		s = s.substring(start + 1, last);
+		String p[] = s.split("\\)\\/\\(");
+		System.out.println(p[0]);
+		v.bunshi = new Polynomial(p[0]);
+		System.out.println(p[1]);
+		v.bunbo = new Polynomial(p[1]);
+		return v;
+	}
 }
