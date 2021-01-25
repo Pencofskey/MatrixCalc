@@ -35,8 +35,8 @@ public class test3 {
 		v2.setBunbo(p3);
 		v2.multiply(t6);
 
-		Fraction f = Fraction.convert("-4");
-//		f.print();
+		Fraction f = Fraction.convert("1");
+		f.print();
 
 		Term t = Term.convert("-4/3x^(5)");
 //		t.print();
@@ -49,9 +49,15 @@ public class test3 {
 		Polynomial p = Polynomial.convert(s);
 		p.print();
 
-		Polynomial p4 = new Polynomial("-4/3x^(5)-1");
+		Polynomial p4 = new Polynomial("1/2");
 		p4.print();
-
+		
+		Value v3 = new Value();
+		v3.print();
+		
+		Matrix m = new Matrix();
+		m.print();
+		m.inputData();
 	}
 
 }

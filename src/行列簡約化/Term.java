@@ -42,6 +42,8 @@ public class Term {
 			s = this.coefficient.toString();
 		}else if(this.power.getBunshi() == 1 && this.power.getBunbo() == 1){
 			s = this.coefficient.toString() + "x";
+		}else if(this.coefficient.getBunbo() == 1){
+			s = this.coefficient + "";
 		}else {
 			s = this.coefficient + "x^(" + this.power + ")";
 		}
@@ -115,6 +117,12 @@ public class Term {
 		}else {
 			coefficient = s.substring(0, x);
 			power = s.substring(kakko+1, s.length()-1);
+		}
+		if(coefficient.equals("")) {
+			coefficient = "1";
+		}
+		if(power.equals("")) {
+			power = "1";
 		}
 //		System.out.println(coefficient + ", " + power);
 		return new Term(Fraction.convert(coefficient), Fraction.convert(power));

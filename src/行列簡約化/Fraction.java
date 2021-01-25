@@ -36,7 +36,7 @@ public class Fraction {
 		}else if(this.bunbo == 1) {
 			f = this.bunshi + "";
 		}else {
-			f = (this.bunshi + "/" + this.bunbo) + "";
+			f = this.bunshi + "/" + this.bunbo;
 		}
 		return f;
 	}
@@ -45,9 +45,6 @@ public class Fraction {
 		System.out.println(this.toString());
 	}
 
-	public void Print() {
-		System.out.println(this.bunshi + "/" + this.bunbo);
-	}
 
 	//分数を約分し、
 	//分母が負の場合分母分子両方に-1をかける
