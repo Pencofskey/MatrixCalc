@@ -2,7 +2,7 @@ package 行列簡約化;
 
 public class Main {
 	public static void main(String[] args) {
-				test2.test();	//デバッグ用
+				test3.test();	//デバッグ用
 //		Matrix m = new Matrix();
 //		m.inputData();
 //		System.out.println("\n入力された行列");

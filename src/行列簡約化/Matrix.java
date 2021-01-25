@@ -5,7 +5,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
 public class Matrix {
-	private Fraction[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
+	private Value[][] matrix; //内部的には0行0列から始まっています 普通の行列式のように1行1列から始まってると考えて引数を渡すと配列エラーになります
 	private int row; //行数
 	private int column; //列数
 
@@ -17,7 +17,7 @@ public class Matrix {
 		return this.column;
 	}
 
-	public Fraction[][] getMatrix() {
+	public Value[][] getMatrix() {
 		return this.matrix;
 	}
 
@@ -58,20 +58,20 @@ public class Matrix {
 	Matrix(int row, int column, int randomRange) { //デバッグ用自動行列生成
 		this.row = row;
 		this.column = column;
-		this.matrix = new Fraction[row][column];
+		this.matrix = new Value[row][column];
 		for (int r = 0; r < this.row; r++) {
 			for (int c = 0; c < this.column; c++) {
-				this.matrix[r][c] = new Fraction()
+				this.matrix[r][c] = new Value();
 			}
 		}
 	}
 
 	//行列リセット
 	public void reset() {
-		this.matrix = new String[this.row][this.column];
+		this.matrix = new Value[this.row][this.column];
 		for (int r = 0; r < this.row; r++) {
 			for (int c = 0; c < this.column; c++) {
-				this.matrix[r][c] = " ";
+				this.matrix[r][c] = new Value();
 			}
 		}
 	}
@@ -80,8 +80,8 @@ public class Matrix {
 	public int detectColumnMax(int c) {	//c列の最大文字数を返します
 		int max = 0;
 		for(int i = 0; i < this.row; i ++) {
-			if(max < this.matrix[i][c].length()) {
-				max = this.matrix[i][c].length();
+			if(max < this.matrix[i][c].toString().length()) {
+				max = this.matrix[i][c].toString().length();
 			}
 		}
 		return max;
@@ -135,7 +135,7 @@ public class Matrix {
 			System.out.print("| "); //1番左上の縦棒描画
 			for (int column = 0; column < this.getColumn(); column++) {
 				System.out.print(this.getMatrix()[row][column]);
-				for (int i = 0; i < detectColumnMax(column) + 2 - this.getMatrix()[row][column].length(); i++) { //(最大文字数+2-現在の要素の文字数)分スペースを挿入し、列をそろえる
+				for (int i = 0; i < detectColumnMax(column) + 2 - this.getMatrix()[row][column].toString().length(); i++) { //(最大文字数+2-現在の要素の文字数)分スペースを挿入し、列をそろえる
 					System.out.print(" ");
 				}
 				System.out.print("| "); //左端の縦棒描画
@@ -161,7 +161,7 @@ public class Matrix {
 		for (int row = 0; row < this.getRow(); row++) {
 			for (int column = 0; column < this.getColumn(); column++) {
 				System.out.println();
-				this.matrix[row][column] = "_"; //現在入力要素をマーキング
+//				this.matrix[row][column] = "_"; //現在入力要素をマーキング
 				this.print();
 				this.imputer(row, column);
 			}
@@ -183,7 +183,7 @@ public class Matrix {
 				System.out.println("行列のサイズ外の行もしくは列を指定しています");
 			}
 		} while (outSideEroorCheckInterface(fRow + 1, fColumn + 1));
-		this.matrix[fRow][fColumn] = "_"; //修正箇所にマーキング
+//		this.matrix[fRow][fColumn] = "_"; //修正箇所にマーキング
 		this.print();
 		this.imputer(fRow, fColumn);
 		System.out.println();

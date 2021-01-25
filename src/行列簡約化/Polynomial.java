@@ -17,6 +17,10 @@ public class Polynomial {
 		this();
 		this.setTerm(new Term(new Fraction(1, 1), new Fraction()));
 	}
+	public Polynomial(String s) {
+		this();
+		Polynomial.convert(s).copy(this);
+	}
 
 	public Term getTerm(int digree) {
 		return this.x[digree];
@@ -223,4 +227,19 @@ public class Polynomial {
 		return b;
 	}
 
+	// 	-4/3x^(5) + 2x^(-1)
+	public static Polynomial convert(String s) {
+		s = s.replaceAll(" ", "");
+		s = s.replaceAll("-", "-a");
+		Polynomial p = new Polynomial();
+		String terms[] = s.split("\\+|-", 0);
+		for(int i = 0; i < terms.length; i++) {
+			if(!terms[i].matches("")) {
+				terms[i] = terms[i].replace("a", "-");
+//				System.out.println(i + ":" + terms[i]);
+				p.setTerm(Term.convert(terms[i]));
+			}
+		}
+		return p;
+	}
 }

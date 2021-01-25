@@ -237,5 +237,22 @@ public class Fraction {
 		copy.bunbo = this.bunbo;
 		return copy;
 	}
+	
+	//String型で渡された分数をFraction型に変換します
+	// -2/21 
+	public static Fraction convert(String s) {
+		int slash = s.indexOf('/');
+		int bunshi;
+		int bunbo;
+		if(slash < 0) {
+			bunshi = Integer.parseInt(s);
+			bunbo = 1;
+		}else {			
+			bunshi = Integer.parseInt(s.substring(0, slash));
+			bunbo = Integer.parseInt(s.substring(slash+1, s.length()));
+		}
+		Fraction f = new Fraction(bunshi, bunbo);
+		return f;
+	}
 
 }

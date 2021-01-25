@@ -88,7 +88,7 @@ public class Term {
 		t.setPower(this.getPower().copy());
 		return t;
 	}
-	
+
 	public boolean equals(Term t) {
 		boolean equal = true;
 		if(!this.coefficient.equals(t.coefficient)) {
@@ -98,5 +98,25 @@ public class Term {
 			equal = false;
 		}
 		return equal;
+	}
+
+	// 例   4x^(2), -2/3x^(-2/5), 5x, 23
+	public static Term convert(String s) {
+		int x = s.indexOf('x');
+		int kakko = s.indexOf('(');
+		String coefficient;
+		String power;
+		if(x < 0) {
+			coefficient = s;
+			power = "0";
+		}else if(kakko < 0){
+			coefficient = s.substring(0, x);
+			power = "1";
+		}else {
+			coefficient = s.substring(0, x);
+			power = s.substring(kakko+1, s.length()-1);
+		}
+//		System.out.println(coefficient + ", " + power);
+		return new Term(Fraction.convert(coefficient), Fraction.convert(power));
 	}
 }

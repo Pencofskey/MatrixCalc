@@ -72,6 +72,9 @@ public class test2 {
 		v.print();
 		v2.print();
 		
+		Fraction f4 = Fraction.convert("1/3");
+		f4.print();
+		
 		
 //		v.print();
 //		v2.print();

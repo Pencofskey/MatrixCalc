@@ -197,4 +197,12 @@ public class Value {
 		copy.bunbo = this.bunbo.copy();
 		return copy;
 	}
+	
+	public Value convertFromString(String s) {
+		
+	}
+	
+	public void inputData(int l, int c, Value v) {
+		
+	}
 }
