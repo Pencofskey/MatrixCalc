@@ -229,13 +229,15 @@ public class Polynomial {
 
 	// 	-4/3x^(5) + 2x^(-1)
 	public static Polynomial convert(String s) {
-		s = s.replaceAll(" ", "");
-		s = s.replaceAll("-", "-a");
+		s = s.replace(" ", "");
+		s = s.replace("x^(-", "b");
+		s = s.replace("-", "-a");
 		Polynomial p = new Polynomial();
 		String terms[] = s.split("\\+|-", 0);
 		for(int i = 0; i < terms.length; i++) {
 			if(!terms[i].matches("")) {
 				terms[i] = terms[i].replace("a", "-");
+				terms[i] = terms[i].replace("b", "x^(-");
 //				System.out.println(i + ":" + terms[i]);
 				p.setTerm(Term.convert(terms[i]));
 			}

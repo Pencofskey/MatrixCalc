@@ -176,7 +176,7 @@ public class Matrix {
 			err = false;
 			System.out.print((row + 1) + "行" + (column + 1) + "列のデータを入力してください : "); //内部的にはrow行column列ですが、数学的に違和感がないように+1して表示
 			String input = new java.util.Scanner(System.in).nextLine();
-			this.getMatrix()[row][column] = new Value(new Polynomial(input), new Polynomial(1));
+			this.getMatrix()[row][column] = Value.convert(input);
 
 //			if (this.matrix[row][column].equals("-")) { //-が入力されたとき-1に変換
 //				this.matrix[row][column] = "-1";
