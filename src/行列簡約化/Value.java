@@ -50,9 +50,9 @@ public class Value {
 			sb.append(this.bunshi.toString());
 			return sb.toString();
 		}else {
-			sb.append("(");
+			sb.append("{");
 			sb.append(this.bunshi.toString());
-			sb.append(")");
+			sb.append("}");
 		}
 		if(this.bunbo.equals(new Polynomial(2))) {
 			return sb.toString();
@@ -61,9 +61,9 @@ public class Value {
 		if(bunbo.length() == 1) {
 			sb.append(this.bunbo.toString());
 		}else {
-			sb.append("(");
+			sb.append("{");
 			sb.append(this.bunbo.toString());
-			sb.append(")");
+			sb.append("}");
 		}
 		return sb.toString();
 	}
@@ -224,17 +224,33 @@ public class Value {
 		return copy;
 	}
 	
-	public static Value convert(String s) {
+	public static Value convert(String s) {	//バグ
 		Value v = new Value();
 		s = s.replaceAll(" ", "");
-		int start = s.indexOf("(");
-		int last = s.lastIndexOf(")");
-		s = s.substring(start + 1, last);
-		String p[] = s.split("\\)\\/\\(");
+		int start = s.indexOf("{");
+		int last = s.lastIndexOf("}");
+		if(start < 0) {
+			;
+		}else {
+			s = s.substring(start + 1);
+		}
+		if(last < 0) {
+			;
+		}else {
+			s = s.substring(0, last -1);
+		}
+		String p[] = s.split("\\}\\/\\{");
+		if(p.length == 0) {
+			
+		}else if(p.length == 1) {
+			v.bunshi = new Polynomial(p[0]);
+			v.bunbo = new Polynomial(1);
+		}else {
+			v.bunshi = new Polynomial(p[0]);
+			v.bunbo = new Polynomial(p[1]);			
+		}
 //		System.out.println(p[0]);
-		v.bunshi = new Polynomial(p[0]);
 //		System.out.println(p[1]);
-		v.bunbo = new Polynomial(p[1]);
 		return v;
 	}
 }

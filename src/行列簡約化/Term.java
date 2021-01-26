@@ -37,10 +37,17 @@ public class Term {
 	}
 
 	public String toString() {
-		String s = this.coefficient.toString();
+		String s = "";
+		if(this.coefficient.getBunshi() == this.coefficient.getBunbo()){
+			;
+		}else if(this.coefficient.getBunshi() * -1 == this.coefficient.getBunbo()){
+			s = "-";
+		}else {
+			s = this.coefficient.toString();
+		}
 		if(this.power.getBunshi() == 0) {
-			s += "";
-		}else if(this.power.getBunshi() == 1 && this.power.getBunbo() == 1){
+			;
+		}else if(this.power.getBunshi() == this.power.getBunbo()){
 			s += "x";
 		}else {
 			s += "x^(" + this.power.toString() + ")";
