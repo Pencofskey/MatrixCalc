@@ -15,7 +15,7 @@ public class Polynomial {
 	//整数nの定数項のみの多項式
 	public Polynomial(int n) {
 		this();
-		this.setTerm(new Term(new Fraction(1, 1), new Fraction()));
+		this.setTerm(new Term(new Fraction(1, 1), new Fraction(0, 1)));
 	}
 	public Polynomial(String s) {
 		this();

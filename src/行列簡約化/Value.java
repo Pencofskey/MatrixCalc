@@ -41,29 +41,28 @@ public class Value {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if(bunshi.length() == 1) {
-			sb.append(this.bunshi.toString());
-		}else if(bunshi.length() == 0) {
+		//分子の描画
+		if(bunshi.equals(new Polynomial())) {
 			sb.append("0");
-			return sb.toString();
-		}else if(bunbo.equals(new Polynomial(1))){
+		}else if(bunshi.length() == 1) {
 			sb.append(this.bunshi.toString());
-			return sb.toString();
 		}else {
 			sb.append("{");
 			sb.append(this.bunshi.toString());
 			sb.append("}");
 		}
-		if(this.bunbo.equals(new Polynomial(2))) {
-			return sb.toString();
-		}
-		sb.append("/");
-		if(bunbo.length() == 1) {
-			sb.append(this.bunbo.toString());
+		//分母の描画
+		if(this.bunbo.equals(new Polynomial(1))) {
+			;
 		}else {
-			sb.append("{");
-			sb.append(this.bunbo.toString());
-			sb.append("}");
+			sb.append("/");
+			if(bunbo.length() == 1) {
+				sb.append(this.bunbo.toString());
+			}else {
+				sb.append("{");
+				sb.append(this.bunbo.toString());
+				sb.append("}");
+			}
 		}
 		return sb.toString();
 	}
@@ -227,28 +226,64 @@ public class Value {
 	public static Value convert(String s) {	//バグ
 		Value v = new Value();
 		s = s.replaceAll(" ", "");
-		int start = s.indexOf("{");
-		int last = s.lastIndexOf("}");
-		if(start < 0) {
-			;
+		
+		int bunshiStart = s.indexOf("{");
+		int bunshiLast = s.indexOf("}");
+		int bunboStart = s.lastIndexOf("{");
+		int bunboLast = s.lastIndexOf("}");
+		
+		String bunshi;
+		String bunbo;
+		
+		//  {-23x + x^(3) - 2}/{-2/2x + x^(-1/2)}
+		if(s.matches(".*\\}\\/.*")) {
+			if(s.matches(".*\\/\\{.*")) {
+				bunshi = s.substring(bunshiStart +1, bunshiLast);
+				bunbo = s.substring(bunboStart +1, bunboLast);
+			}else {
+				bunshi = s.substring(bunshiStart +1, bunshiLast);
+				bunbo = s.substring(bunshiLast +2, s.length());
+			}
 		}else {
-			s = s.substring(start + 1);
+			if(s.matches(".*\\/\\{.*")) {
+				bunshi = s.substring(0, bunboStart -1);
+				bunbo = s.substring(bunboStart +1, bunboLast);
+			}else {
+				bunshi = s;
+				bunbo = "1";
+			}
 		}
-		if(last < 0) {
-			;
-		}else {
-			s = s.substring(0, last -1);
-		}
-		String p[] = s.split("\\}\\/\\{");
-		if(p.length == 0) {
-			
-		}else if(p.length == 1) {
-			v.bunshi = new Polynomial(p[0]);
-			v.bunbo = new Polynomial(1);
-		}else {
-			v.bunshi = new Polynomial(p[0]);
-			v.bunbo = new Polynomial(p[1]);			
-		}
+		
+//		System.out.println(bunshi + ", " + bunbo);
+		
+		v.bunshi = new Polynomial(bunshi);
+		v.bunbo = new Polynomial(bunbo);
+
+		
+		
+		
+//		int start = s.indexOf("{");
+//		int last = s.lastIndexOf("}");
+//		if(start < 0) {
+//			;
+//		}else {
+//			s = s.substring(start + 1);
+//		}
+//		if(last < 0) {
+//			;
+//		}else {
+//			s = s.substring(0, last -1);
+//		}
+//		String p[] = s.split("\\}\\/\\{");
+//		if(p.length == 0) {
+//			
+//		}else if(p.length == 1) {
+//			v.bunshi = new Polynomial(p[0]);
+//			v.bunbo = new Polynomial(1);
+//		}else {
+//			v.bunshi = new Polynomial(p[0]);
+//			v.bunbo = new Polynomial(p[1]);			
+//		}
 //		System.out.println(p[0]);
 //		System.out.println(p[1]);
 		return v;

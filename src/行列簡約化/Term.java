@@ -38,13 +38,20 @@ public class Term {
 
 	public String toString() {
 		String s = "";
+		//分子
 		if(this.coefficient.getBunshi() == this.coefficient.getBunbo()){
-			;
+			if(this.power.bunshi == 0) {
+				s += "1";
+			}
 		}else if(this.coefficient.getBunshi() * -1 == this.coefficient.getBunbo()){
 			s = "-";
+			if(this.power.bunshi == 0) {
+				s += "1";
+			}
 		}else {
 			s = this.coefficient.toString();
 		}
+		//分母
 		if(this.power.getBunshi() == 0) {
 			;
 		}else if(this.power.getBunshi() == this.power.getBunbo()){

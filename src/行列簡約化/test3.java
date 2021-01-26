@@ -38,7 +38,7 @@ public class test3 {
 //		Fraction f = Fraction.convert("5");
 //		f.print();
 
-		Term t = Term.convert("-x");
+		Term t = Term.convert("3");
 		t.print();
 
 
@@ -52,6 +52,7 @@ public class test3 {
 //		Polynomial p4 = new Polynomial("-4/3x^(-5)-1");
 //		p4.print();
 		
+		// {-23x + x^(3) - 2}/{-2/2x + x^(-1/2)}
 		Value v3 = Value.convert("{-23x + x^(3) - 2}/{-2/2x + x^(-1/2)}");
 		v3.print();
 		

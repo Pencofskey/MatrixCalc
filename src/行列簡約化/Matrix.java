@@ -96,13 +96,6 @@ public class Matrix {
 	//行列出力
 	public void print() {
 		
-		//表示用String配列に代入
-		for(int r = 0; r < this.row; r++) {
-			for(int c = 0; c < this.column; c++) {
-				this.string[r][c] = this.matrix[r][c].toString();
-			}
-		}
-
 		//列数描画
 		System.out.print("      ");
 		for (int column = 0; column < this.column; column++) {
@@ -174,9 +167,16 @@ public class Matrix {
 		boolean err;
 		do {
 			err = false;
-			System.out.print((row + 1) + "行" + (column + 1) + "列のデータを入力してください : "); //内部的にはrow行column列ですが、数学的に違和感がないように+1して表示
-			String input = new java.util.Scanner(System.in).nextLine();
-			this.getMatrix()[row][column] = Value.convert(input);
+			try {
+				System.out.print((row + 1) + "行" + (column + 1) + "列のデータを入力してください : "); //内部的にはrow行column列ですが、数学的に違和感がないように+1して表示
+				String input = new java.util.Scanner(System.in).nextLine();
+				this.getMatrix()[row][column] = Value.convert(input);
+				this.string[row][column] = this.matrix[row][column].toString();
+			}catch(Exception e) {
+				System.out.println("入力のフォーマットが違います");
+				err = true;
+			}
+
 
 //			if (this.matrix[row][column].equals("-")) { //-が入力されたとき-1に変換
 //				this.matrix[row][column] = "-1";
