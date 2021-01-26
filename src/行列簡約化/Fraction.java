@@ -4,7 +4,7 @@ public class Fraction {
 
 	int bunshi;
 	int bunbo;
-	int defaultBunbo = 45378209;
+	int defaultBunbo;
 
 	public Fraction(int bunshi, int bunbo) {
 		this.bunshi = bunshi;
@@ -13,11 +13,11 @@ public class Fraction {
 			throw new IllegalArgumentException("div by zero");
 		}
 		this.correctFraction();
-		defaultBunbo = 45378209;
+		defaultBunbo = 1;
 	}
 	public Fraction() {
-		this(0, 45378209);
-		defaultBunbo = 45378209;
+		this(0, 1);
+		defaultBunbo = 1;
 	}
 
 	public int getBunbo() {

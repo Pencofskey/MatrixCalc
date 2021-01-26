@@ -56,7 +56,7 @@ public class Matrix {
 		System.out.println(this.row + "x" + this.column + "型行列");
 	}
 
-	Matrix(int row, int column, int randomRange) { //デバッグ用自動行列生成
+	Matrix(int row, int column) { //デバッグ用自動行列生成
 		this.row = row;
 		this.column = column;
 		this.matrix = new Value[row][column];
@@ -176,29 +176,7 @@ public class Matrix {
 				System.out.println("入力のフォーマットが違います");
 				err = true;
 			}
-
-
-//			if (this.matrix[row][column].equals("-")) { //-が入力されたとき-1に変換
-//				this.matrix[row][column] = "-1";
-//			}else if(this.matrix[row][column].matches("-?0*/.*") || this.matrix[row][column].matches("{0}")) {	//分子0の分数が入力される、又は何も入力されなかったとき0を入力
-//				this.matrix[row][column] = "0";
-//			}else if(this.matrix[row][column].matches(".*/0*")) {	//分母0の時エラー
-//				err = true;
-//			}else if(this.matrix[row][column].matches("-?0*[1-9]*/0*[1-9]*") || this.matrix[row][column].matches("-?0*[1-9]*")) {		// 004/05 -> 4/5 || -0005 -> -5
-//				this.matrix[row][column] = Fraction.buildFraction(Fraction.getBunshi(this.matrix[row][column]), Fraction.getBunbo(this.matrix[row][column]));
-//			}
-//
-//			if (this.matrix[row][column].matches("-?[0-9]*/?[0-9]*") == false){	//ハイフンが0か1回, スラッシュが0か1回この順番で現れるとき以外エラー
-//				err = true;
-//			}
-//
-//			if (err) {
-//				System.out.println("入力エラー 例)23, -1, -3/4");
-//			}
 		} while (err);
-//		if (this.matrix[row][column].matches(".*/.*")) {
-//			this.matrix[row][column] = Fraction.yakubun(this.matrix[row][column]); //約分
-//		}
 	}
 
 	//データ修正
@@ -227,6 +205,7 @@ public class Matrix {
 		outSideErrorCheck(row);
 		for (int c = 0; c < this.column; c++) {
 			this.matrix[row][c].multiply(v);
+			this.string[row][c] = this.matrix[row][c].toString();
 		}
 	}
 
@@ -234,7 +213,8 @@ public class Matrix {
 	public void rowBasicTransformation1_w(int row, Value v) {
 		outSideErrorCheck(row);
 		for (int c = 0; c < this.column; c++) {
-			this.matrix[row][c].multiply(v);
+			this.matrix[row][c].div(v);
+			this.string[row][c] = this.matrix[row][c].toString();
 		}
 	}
 
@@ -243,6 +223,7 @@ public class Matrix {
 		outSideErrorCheck(row1, row2);
 		for (int c = 0; c < this.column; c++) {
 			this.matrix[row2][c].add(Value.multiply(this.matrix[row1][c], v));
+			this.string[row2][c] = this.matrix[row2][c].toString();
 		}
 	}
 
@@ -251,6 +232,7 @@ public class Matrix {
 		outSideErrorCheck(row1, row2);
 		for (int c = 0; c < this.column; c++) {
 			this.matrix[row2][c].delta(Value.multiply(this.matrix[row1][c], v));
+			this.string[row2][c] = this.matrix[row2][c].toString();
 		}
 	}
 
@@ -262,6 +244,8 @@ public class Matrix {
 			temp = this.matrix[row1][c]; //row1行をtempにコピー
 			this.matrix[row1][c] = this.matrix[row2][c];
 			this.matrix[row2][c] = temp;
+			this.string[row2][c] = this.matrix[row2][c].toString();
+			this.string[row1][c] = this.matrix[row1][c].toString();
 		}
 	}
 
@@ -276,7 +260,7 @@ public class Matrix {
 
 				//現在のc列がすべて0かどうかを確かめる
 				for (int i = 0; i < this.row; i++) {
-					if (!this.matrix[i][c].equals("0")) {
+					if (!this.matrix[i][c].equals(new Value())) {
 						allZero = false;
 					}
 				}
@@ -285,7 +269,7 @@ public class Matrix {
 				boolean isZero = false;
 				for (int i = r; i < this.row; i++) {
 					if (isZero == true) {
-						if (this.matrix[i][c].equals("0")) { //文字列判定には""が必要なことを忘れていた
+						if (this.matrix[i][c].equals(new Value())) { //文字列判定には""が必要なことを忘れていた
 							isZero = true;
 						} else {
 							isZero = false;
@@ -294,7 +278,7 @@ public class Matrix {
 						}
 					} else {
 						//						System.out.println("isZeroはfalseです");
-						if (this.matrix[i][c].equals("0")) {
+						if (this.matrix[i][c].equals(new Value())) {
 							isZero = true;
 						} else {
 							isZero = false;
@@ -303,9 +287,9 @@ public class Matrix {
 				}
 
 				//c列の一番上の行が0の時はその下の0でない行と入れ替える
-				if (allZero == false && validColumnOrder == false && this.matrix[r][c].equals("0")) { //c列の下の行がすべて0でない場合 かつ 列が正しく並んでいない場合(0より下の行に非0がある)
+				if (allZero == false && validColumnOrder == false && this.matrix[r][c].equals(new Value())) { //c列の下の行がすべて0でない場合 かつ 列が正しく並んでいない場合(0より下の行に非0がある)
 					for (int i = r + 1; i < this.row; i++) {
-						if (this.matrix[i][c].equals("0") == false) {
+						if (this.matrix[i][c].equals(new Value()) == false) {
 
 							//デバッグ用
 							this.print();
@@ -319,11 +303,11 @@ public class Matrix {
 				}
 
 				//r行目の先頭の値が1になるようにr行目全体をr行目の先頭の値で割り、r行目より下の行の先頭が0になるように引く
-				if (!this.matrix[r][c].equals("0")) { //現在の要素が0でない
-					if (!this.matrix[r][c].equals("1")) {
+				if (!this.matrix[r][c].equals(new Value())) { //現在の要素が0でない
+					if (!this.matrix[r][c].equals(new Value(new Polynomial(1), new Polynomial(1)))) {
 
 						//デバッグ用
-						System.out.println("\n行の主成分を1にする\n " + (r + 1) + "行 × " + Fraction.gyakusu(this.matrix[r][c]) + "\n");
+						System.out.println("\n行の主成分を1にする\n " + (r + 1) + "行 × " + "kakerukazu(gyakusu)\n");
 						rowBasicTransformation1_w(r, this.matrix[r][c]);
 						this.print();
 						//						System.out.println("現在は " + r + "行 " + c + "列 です\n");
@@ -333,7 +317,7 @@ public class Matrix {
 						System.out.println("\n主成分より下の行の成分を0にする");
 					}
 					for (int i = 1; r + i < this.row; i++) { //最後の行でない場合のみ実行
-						if (!this.matrix[r + i][c].equals("0")) {
+						if (!this.matrix[r + i][c].equals(new Value())) {
 
 							//デバッグ用
 							//							System.out.println("現在は " + r + "行 " + c + "列 です\n");
@@ -353,10 +337,10 @@ public class Matrix {
 		//主成分ある列の上の成分をすべて0にする
 		for (int r = this.row - 1; r > 0; r--) {
 			for (int c = 0; c < this.column; c++) {
-				if (!this.matrix[r][c].equals("0")) {
+				if (!this.matrix[r][c].equals(new Value())) {
 					System.out.println("\n主成分より上にある成分を0にする");
 					for (int i = 1; r - i >= 0; i++) {
-						if(!this.matrix[r - i][c].equals("0")) {
+						if(!this.matrix[r - i][c].equals(new Value())) {
 
 							//デバッグ用
 							System.out.println(" " + ((r + 1) - i) + "行 - " + (r + 1) + "行 × " + this.matrix[r - i][c]);
@@ -417,5 +401,14 @@ public class Matrix {
 	    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 	    StringSelection selection = new StringSelection(cb.toString());
 	    clipboard.setContents(selection, selection);
+	}
+	
+	public void copyToString() {
+		//表示用String配列に代入
+		for(int r = 0; r < this.row; r++) {
+			for(int c = 0; c < this.column; c++) {
+				this.string[r][c] = this.matrix[r][c].toString();
+			}
+		}
 	}
 }

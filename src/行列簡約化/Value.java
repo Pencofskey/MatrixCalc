@@ -136,6 +136,7 @@ public class Value {
 		Polynomial temp1 = new Polynomial();
 		Polynomial temp2 = new Polynomial();
 
+		//判定用変数
 		Polynomial thisBunshi = this.bunshi.copy();
 		Polynomial thisBunbo = this.bunbo.copy();
 		Polynomial vBunshi = v.bunshi.copy();
@@ -149,35 +150,50 @@ public class Value {
 		Fraction vBunshiS = Polynomial.saidaikouyakusu(v.bunshi);
 		//掛ける相手の分母の最大公約数
 		Fraction vBunboS = Polynomial.saidaikouyakusu(v.bunbo);
-
-		//それぞれの多項式を共通因数で割る
+		
+		//判定用変数をそれぞれの最大公約数で割る
 		thisBunshi.div(thisBunshiS);
 		thisBunbo.div(thisBunboS);
 		vBunshi.div(vBunshiS);
 		vBunbo.div(vBunboS);
 		
-		if(thisBunshi.equals(vBunbo) || thisBunbo.equals(vBunshi)) {
-			//自分の分子と相手の分母が約分できる場合
-			if(thisBunshi.equals(vBunbo)) {
-				temp1 = v.bunshi.copy();
-				temp1.multiply(thisBunshiS);
-				temp2 = this.bunbo.copy();
-				temp2.multiply(vBunboS);
-				this.bunshi = temp1;
-				this.bunbo = temp2;
-			}
-			//自分の分母と相手の分子が約分できる場合
-			if(thisBunbo.equals(vBunshi)) {
-				temp1 = this.bunshi.copy();
-				temp1.multiply(vBunshiS);
-				temp2 = v.bunbo.copy();
-				temp2.multiply(thisBunboS);
-				this.bunshi = temp1;
-				this.bunbo = temp2;
-			}
-		}else {
+		//判定用変数が定数になってしまう場合を除く
+		if(thisBunshi.equals(new Polynomial(1)) && vBunbo.equals(new Polynomial(1))) {
 			this.bunshi.multiply(v.bunshi);
 			this.bunbo.multiply(v.bunbo);
+//			System.out.println("判定用変数が定数");
+		}else if(thisBunbo.equals(new Polynomial(1)) && vBunshi.equals(new Polynomial(1))) {
+			this.bunshi.multiply(v.bunshi);
+			this.bunbo.multiply(v.bunbo);
+//			System.out.println("判定用変数が定数");
+		}else {
+			//分数同士を掛け合わせたとき約分して消える場合
+			if(thisBunshi.equals(vBunbo) || thisBunbo.equals(vBunshi)) {
+				//自分の分子と相手の分母が約分できる場合
+				if(thisBunshi.equals(vBunbo)) {
+					temp1 = v.bunshi.copy();
+					temp1.multiply(thisBunshiS);
+					temp2 = this.bunbo.copy();
+					temp2.multiply(vBunboS);
+					this.bunshi = temp1;
+					this.bunbo = temp2;
+//					System.out.println("約分タイプ1");
+				}
+				//自分の分母と相手の分子が約分できる場合
+				if(thisBunbo.equals(vBunshi)) {
+					temp1 = this.bunshi.copy();
+					temp1.multiply(vBunshiS);
+					temp2 = v.bunbo.copy();
+					temp2.multiply(thisBunboS);
+					this.bunshi = temp1;
+					this.bunbo = temp2;
+//					System.out.println("約分タイプ2");
+				}
+			}else {
+				this.bunshi.multiply(v.bunshi);
+				this.bunbo.multiply(v.bunbo);
+//				System.out.println("それ以外");
+			}
 		}
 		this.yakubun();
 	}
