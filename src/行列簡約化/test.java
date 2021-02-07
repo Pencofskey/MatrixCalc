@@ -71,8 +71,8 @@ public class test {
 //		Matrix m = new Matrix(4, 5, 60);	//デバッグ用自動行列生成
 //		Matrix m = new Matrix();
 //		m.inputData();		//データインプッタ
-		m.print();
-		System.out.println();
+//		m.print();
+//		System.out.println();
 
 		//行基本変形2のテスト
 //		m.rowBasicTransformation2_d(0, "1/2", 1);
