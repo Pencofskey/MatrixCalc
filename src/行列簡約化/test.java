@@ -56,19 +56,19 @@ public class test {
 //		System.out.println(Fraction.getBunbo("324874/3463787"));
 //		System.out.println(Fraction.yakubun("-34/466"));
 //		System.out.println(Fraction.tsubun("-345/523", "384/55"));
-		System.out.println(Fraction.kakeru("-3/2", Fraction.gyakusu("3/2")));		// <-------------bug 1が帰る	修正済み
-		System.out.println(Fraction.kakeru("-3/2", "2/3"));		// <-----------bug これでもダメ 1が帰る	修正済み
-		System.out.println(Fraction.kakeru("-1/2", "2/1"));
-		System.out.println(Fraction.kakeru("-1/2", "2"));
-		System.out.println(Fraction.kakeru("-3/4", "1/3"));
-		System.out.println(Fraction.getBunshi("-3/2"));	//これはちゃんと動いてる
-		System.out.println(Fraction.buildFraction(-3, 2));	//これもOK
-		System.out.println(Fraction.yakubun("-3/2"));		//これもOK	やはり掛けるメソッドに問題あり
-		System.out.println(Fraction.yakubun("-5/5"));	// <-----------------bug 計算結果1×	修正済み
-		System.out.println(Fraction.yakubun("-6/2"));
+//		System.out.println(Fraction.kakeru("-3/2", Fraction.gyakusu("3/2")));		// <-------------bug 1が帰る	修正済み
+//		System.out.println(Fraction.kakeru("-3/2", "2/3"));		// <-----------bug これでもダメ 1が帰る	修正済み
+//		System.out.println(Fraction.kakeru("-1/2", "2/1"));
+//		System.out.println(Fraction.kakeru("-1/2", "2"));
+//		System.out.println(Fraction.kakeru("-3/4", "1/3"));
+//		System.out.println(Fraction.getBunshi("-3/2"));	//これはちゃんと動いてる
+//		System.out.println(Fraction.buildFraction(-3, 2));	//これもOK
+//		System.out.println(Fraction.yakubun("-3/2"));		//これもOK	やはり掛けるメソッドに問題あり
+//		System.out.println(Fraction.yakubun("-5/5"));	// <-----------------bug 計算結果1×	修正済み
+//		System.out.println(Fraction.yakubun("-6/2"));
 
 
-		Matrix m = new Matrix(4, 5, 60);	//デバッグ用自動行列生成
+//		Matrix m = new Matrix(4, 5, 60);	//デバッグ用自動行列生成
 //		Matrix m = new Matrix();
 //		m.inputData();		//データインプッタ
 		m.print();

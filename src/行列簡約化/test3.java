@@ -62,7 +62,7 @@ public class test3 {
 //		p4.print();
 		
 		// {-23x + x^(3) - 2}/{-2/2x + x^(-1/2)}
-		Value v3 = Value.convert("2x");
+		Value v3 = Value.convert("0");
 		Value v4 = Value.convert("5x+3x2");		//3*2=12になるバグ
 		v3.print();
 		v4.print();
@@ -78,8 +78,8 @@ public class test3 {
 		m.copyToString();
 		m.print();
 		
-		m.rowBasicTransformation2_d(0, Value.convert("2"), 1);
-//		m.hakidashi();
+//		m.rowBasicTransformation1_k(0, Value.convert("2"));
+		m.hakidashi();
 		m.print();
 	}
 
